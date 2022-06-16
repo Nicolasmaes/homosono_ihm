@@ -1,0 +1,8 @@
+{
+  "name": "HomeSono",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react",
+  "id": "b34ad2ba"
+}
