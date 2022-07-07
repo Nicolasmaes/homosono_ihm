@@ -10,12 +10,15 @@ import {
   setupIonicReact,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { ellipse, home, storefront, personCircleSharp } from "ionicons/icons";
-import Accueil from "./pages/accueil";
-import Categories from "./pages/Categories";
+import { home, storefront, personCircleSharp } from "ionicons/icons";
+import Accueil from "./pages/Accueil/Accueil";
+import Categories from "./pages/Categories/Categories";
 import Categorie from "./components/categorie/categorie";
-import Users from "./pages/Users";
+import Users from "./pages/Users/Users";
 import User from "./components/user/user";
+import Signup from "./pages/Signup/Signup";
+import InscriptionConfirmation from "./pages/SignUpConfirmation/SignUpConfirmation";
+import Login from "./pages/Login/Login";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -58,6 +61,15 @@ const App: React.FC = () => (
           <Route exact path="/user/:id">
             <User />
           </Route>
+          <Route exact path="/signin">
+            <Signup />
+          </Route>
+          <Route exact path="/confirmation">
+            <InscriptionConfirmation />
+          </Route>
+          <Route exact path="/login">
+            <Login />
+          </Route>
           <Route exact path="/">
             <Redirect to="/accueil" />
           </Route>
@@ -67,13 +79,21 @@ const App: React.FC = () => (
           <IonTabButton tab="accueil" href="/accueil">
             <IonIcon icon={home} />
           </IonTabButton>
-          <IonTabButton tab="tab2" href="/categories">
+          <IonTabButton tab="Categories" href="/categories">
             <IonIcon icon={storefront} />
             <IonLabel>Catégories</IonLabel>
           </IonTabButton>
           <IonTabButton tab="Users" href="/users">
             <IonIcon icon={personCircleSharp} />
             <IonLabel>Utilisateurs</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="Signin" href="/signin">
+            <IonIcon icon={personCircleSharp} />
+            <IonLabel>Inscription</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="login" href="/login">
+            <IonIcon icon={personCircleSharp} />
+            <IonLabel>Connexion</IonLabel>
           </IonTabButton>
         </IonTabBar>
       </IonTabs>

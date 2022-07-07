@@ -1,13 +1,10 @@
-import React, { useEffect } from "react";
-import { bindActionCreators } from "redux";
+import { useEffect } from "react";
 import { connect } from "react-redux";
 //import * as productsAction from "../../redux/";
 import "./products.scss";
 
 function ProductsComponent({ stateProducts, actionProducts }) {
-  useEffect(() => {
-    console.log(state);
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <>
@@ -21,12 +18,14 @@ function ProductsComponent({ stateProducts, actionProducts }) {
 const mapStateToProps = (state) => ({
   state: state,
   stateProducts: state.productsReducer,
-
 });
 
 const mapDispatchToProps = (dispatch) => ({
   //actionProducts: bindActionCreators(productsAction, dispatch),
 });
 
-const Products = connect(mapStateToProps, mapDispatchToProps)(ProductsComponent);
+const Products = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ProductsComponent);
 export default Products;

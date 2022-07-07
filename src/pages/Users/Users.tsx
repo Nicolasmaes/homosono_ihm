@@ -5,13 +5,11 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import Users from "../components/users/users";
+import Users from "../../components/users/users";
 import "./Users.css";
-import React, { useState } from "react";
+import React from "react";
 
-const Tab3: React.FC = () => {
-  const [searchText, setSearchText] = useState("");
-
+const UsersPage: React.FC = () => {
   return (
     <>
       <IonPage>
@@ -37,4 +35,4 @@ const Tab3: React.FC = () => {
   );
 };
 
-export default Tab3;
+export default UsersPage;

@@ -5,12 +5,11 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import Categories from "../components/categories/categories";
-import ExploreContainer from "../components/ExploreContainer/ExploreContainer";
+import Categories from "../../components/categories/categories";
 
 import "./Categories.css";
 
-const Tab2: React.FC = () => {
+const CategoriesPage: React.FC = () => {
   return (
     <IonPage>
       <IonHeader collapse="condense">
@@ -34,4 +33,4 @@ const Tab2: React.FC = () => {
   );
 };
 
-export default Tab2;
+export default CategoriesPage;

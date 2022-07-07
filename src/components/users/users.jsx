@@ -1,43 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { bindActionCreators } from "redux";
+import { IonAlert, IonButton, IonIcon, IonItem } from "@ionic/react";
+import { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import {
-  IonContent,
-  IonHeader,
-  IonPage,
-  IonTitle,
-  IonToolbar,
-  IonInput,
-  IonIcon,
-  IonItem,
-  IonLabel,
-  IonList,
-  IonItemDivider,
-  IonButton,
-  useIonAlert,
-  IonAlert,
-} from "@ionic/react";
-import {
-  eye,
-  create,
-  trash,
-  square,
-  triangle,
-  home,
-  storefront,
-  personCircleSharp,
-} from "ionicons/icons";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  NavLink,
-  useRouteMatch,
-  useParams,
-} from "react-router-dom";
+import { bindActionCreators } from "redux";
+
+import { create, eye, trash } from "ionicons/icons";
+
 import * as usersAction from "../../redux/user/userAction";
 import "./users.scss";
-import { act } from "@testing-library/react";
 
 function UsersComponent({ actionUsers, stateUser }) {
   const [createAlert, setCreateAlert] = useState(false);
@@ -61,39 +30,38 @@ function UsersComponent({ actionUsers, stateUser }) {
       return (
         <div className="singleCat">
           <IonItem>
-            <ion-label>{e.usrLoginUsr}</ion-label>
-            <NavLink to={`user/${e.usrIdUsrPK}`}>
-              <IonButton className="fancy-button" onClick={() => {}}>
-                <IonIcon icon={eye} />
-              </IonButton>
-            </NavLink>
-            <NavLink to="/users">
-              <IonButton
-                className="fancy-button-reverse"
-                onClick={() => {
-                  setLoginUser(e.usrLoginUsr);
-                  setIdUser(e.usrIdUsrPK);
-                  setEmailUser(e.usrEmailUsr);
-                  setPasswordUser(e.usrPasswordUsr);
-                  console.log(e);
-                  setUpdateAlert(true);
-                }}
-              >
-                <IonIcon icon={create} />
-              </IonButton>
-            </NavLink>
-            <NavLink to="/users">
-              <IonButton
-                className="fancy-button-reverse"
-                onClick={() => {
-                  setLoginUser(e.usrLoginUsr);
-                  setIdUser(e.usrIdUsrPK);
-                  setDeleteAlert(true);
-                }}
-              >
-                <IonIcon icon={trash} />
-              </IonButton>
-            </NavLink>
+            <ion-label>{e.usrEmailUsr}</ion-label>
+            <ion-label>{e.usrPasswordUsr}</ion-label>
+            <IonButton
+              routerLink={`user/${e.usrIdUsrPK}`}
+              className="fancy-button"
+              onClick={() => {}}
+            >
+              <IonIcon icon={eye} />
+            </IonButton>
+            <IonButton
+              className="fancy-button-reverse"
+              onClick={() => {
+                setLoginUser(e.usrLoginUsr);
+                setIdUser(e.usrIdUsrPK);
+                setEmailUser(e.usrEmailUsr);
+                setPasswordUser(e.usrPasswordUsr);
+                console.log(e);
+                setUpdateAlert(true);
+              }}
+            >
+              <IonIcon icon={create} />
+            </IonButton>
+            <IonButton
+              className="fancy-button-reverse"
+              onClick={() => {
+                setLoginUser(e.usrLoginUsr);
+                setIdUser(e.usrIdUsrPK);
+                setDeleteAlert(true);
+              }}
+            >
+              <IonIcon icon={trash} />
+            </IonButton>
           </IonItem>
         </div>
       );
@@ -102,7 +70,7 @@ function UsersComponent({ actionUsers, stateUser }) {
 
   return (
     <>
-      <div className="users container">
+      <div className="users ion-padding">
         <div className="headingSection">
           <IonButton
             onClick={() => setCreateAlert(true)}

@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
-import * as categorieAction from "../../redux/categorie/categorieAction";
 import {
-  IonToolbar,
-  IonTitle,
   IonButton,
   IonContent,
   IonHeader,
   IonPage,
+  IonTitle,
+  IonToolbar,
 } from "@ionic/react";
+import { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { useParams } from "react-router-dom";
+import { bindActionCreators } from "redux";
+import * as categorieAction from "../../redux/categorie/categorieAction";
 
 import { NavLink } from "react-router-dom";
-import "./categorie.scss";
 import { getCatById } from "../../redux/categorie/categorieReducer";
+import "./categorie.scss";
 
 // const Categories: React.FC = ({ stateCategorie, actionCategorie }) => {
 function CategorieComponent({ stateCategorie, actionCategorie }) {

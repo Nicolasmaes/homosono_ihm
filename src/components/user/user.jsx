@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
-import * as usersAction from "../../redux/user/userAction";
 import {
-  IonToolbar,
-  IonTitle,
   IonButton,
   IonContent,
   IonHeader,
   IonPage,
+  IonTitle,
+  IonToolbar,
 } from "@ionic/react";
+import { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { useParams } from "react-router-dom";
+import { bindActionCreators } from "redux";
+import * as usersAction from "../../redux/user/userAction";
 
 import { NavLink } from "react-router-dom";
-import "./user.scss";
 import { getUserById } from "../../redux/user/userReducer";
+import "./user.scss";
 
 function UserComponent({ actionUsers, stateUser }) {
   const params = useParams();
@@ -28,9 +28,18 @@ function UserComponent({ actionUsers, stateUser }) {
   return (
     <>
       <IonPage>
+        <IonHeader collapse="condense">
+          <IonToolbar>
+            <IonTitle size="large" color="primary">
+              Utilisateur
+            </IonTitle>
+          </IonToolbar>
+        </IonHeader>
         <IonHeader>
           <IonToolbar>
-            <IonTitle>Utilisateur</IonTitle>
+            <IonTitle size="large" color="primary">
+              Utilisateur
+            </IonTitle>
           </IonToolbar>
         </IonHeader>
         <IonContent fullscreen>
@@ -45,7 +54,7 @@ function UserComponent({ actionUsers, stateUser }) {
               <ion-label color="light">Retour aux utilisateurs</ion-label>
             </IonButton>
           </NavLink>
-          <p>{singleUser.usrLoginUsr}</p>
+          <p>{singleUser.usrEmailUsr}</p>
         </IonContent>
       </IonPage>
     </>

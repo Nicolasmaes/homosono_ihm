@@ -1,46 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { bindActionCreators } from "redux";
+import { IonAlert, IonButton, IonIcon, IonItem } from "@ionic/react";
+import { create, eye, trash } from "ionicons/icons";
+import { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import InputEmoji from "react-input-emoji";
-import {
-  IonContent,
-  IonHeader,
-  IonPage,
-  IonTitle,
-  IonToolbar,
-  IonInput,
-  IonIcon,
-  IonItem,
-  IonLabel,
-  IonList,
-  IonItemDivider,
-  IonButton,
-  useIonAlert,
-  IonAlert,
-} from "@ionic/react";
-import { eye, create, trash } from "ionicons/icons";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  NavLink,
-  useRouteMatch,
-  useParams,
-} from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { bindActionCreators } from "redux";
 import * as categorieAction from "../../redux/categorie/categorieAction";
-import Categorie from "../categorie/categorie";
 import "./categories.scss";
 
-// interface ContainerProps {
-//   name: string;
-//   message: string;
-// }
-
-// const Categories: React.FC = ({ stateCategorie, actionCategorie }) => {
 function CategoriesComponent({ stateCategorie, actionCategorie }) {
-  // let match = useRouteMatch();
-  // const { id } = useParams();
-
   const [createAlert, setCreateAlert] = useState(false);
   const [updateAlert, setUpdateAlert] = useState(false);
   const [deleteAlert, setDeleteAlert] = useState(false);
