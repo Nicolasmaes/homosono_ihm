@@ -16,7 +16,6 @@ import { NavLink } from "react-router-dom";
 import { getCatById } from "../../redux/categorie/categorieReducer";
 import "./categorie.scss";
 
-// const Categories: React.FC = ({ stateCategorie, actionCategorie }) => {
 function CategorieComponent({ stateCategorie, actionCategorie }) {
   const params = useParams();
   const [singleCat, setSingleCat] = useState({});

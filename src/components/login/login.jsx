@@ -12,10 +12,10 @@ import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { bindActionCreators } from "redux";
-import * as usersAction from "../../redux/user/userAction";
+import * as authAction from "../../redux/authorization/actions/auth";
 import "./login.scss";
 
-function ConnexionComponent({ actionUsers, stateUser }) {
+function ConnexionComponent({ actionRegister, stateAuth, state }) {
   const history = useHistory();
   const [presentAlert] = useIonAlert();
   const [emailUser, setEmailUser] = useState("");
@@ -24,15 +24,11 @@ function ConnexionComponent({ actionUsers, stateUser }) {
     usrEmailUsr: emailUser,
     usrPasswordUsr: passwordUser,
   };
-  useEffect(() => {
-    actionUsers.getUsers();
-  }, []);
+  useEffect(() => {}, []);
 
   const formChecker = (userToLog) => {
     console.log(userToLog);
-    actionUsers.postLogUser(userToLog, (res) => {
-      console.log(res);
-      localStorage.setItem("jean", "steven");
+    actionRegister.login(userToLog, (res) => {
       if (res.status === 200) {
         console.log("OK");
         setEmailUser("");
@@ -40,19 +36,40 @@ function ConnexionComponent({ actionUsers, stateUser }) {
         // history.push("/confirmation");
       } else {
         console.log("NOT OK");
-        // presentAlert({
-        //   header: "Erreur",
-        //   message:
-        //     "Un problème a eu lieu lors de l'inscription, veuillez contacter l'administrateur.",
-        //   buttons: ["OK"],
-        // });
+        presentAlert({
+          header: "Erreur",
+          message:
+            "Un problème a eu lieu lors de la connexion. Veuillez contacter l'administrateur du site.",
+          buttons: ["OK"],
+        });
       }
     });
   };
 
-  return (
-    <>
-      <div className="connexion ">
+  const dynamicLink = () => {
+    if (localStorage.user) {
+      return <h1>connecté</h1>;
+    } else {
+      return <h1>déconnecté</h1>;
+    }
+  };
+
+  const logOutButton = () => {
+    if (stateAuth) {
+      return (
+        <IonButton
+          className="ion-margin-top"
+          type="submit"
+          expand="block"
+          onClick={() => {
+            actionRegister.logout();
+          }}
+        >
+          se déconnecter
+        </IonButton>
+      );
+    } else {
+      return (
         <IonList className="ion-padding">
           <IonItem>
             <IonLabel position="floating">Identifiant</IonLabel>
@@ -83,7 +100,30 @@ function ConnexionComponent({ actionUsers, stateUser }) {
           >
             <IonIcon icon={sendSharp} />
           </IonButton>
-        </IonList>{" "}
+        </IonList>
+      );
+    }
+  };
+
+  return (
+    <>
+      <div className="connexion ">
+        <IonButton
+          className="ion-margin-top"
+          type="submit"
+          expand="block"
+          onClick={() => {
+            console.log(stateAuth);
+          }}
+        >
+          STATEAUTH{" "}
+        </IonButton>
+        <ion-list>
+          {" "}
+          Vous êtes
+          {dynamicLink()}
+        </ion-list>
+        {logOutButton()}
       </div>
     </>
   );
@@ -91,11 +131,11 @@ function ConnexionComponent({ actionUsers, stateUser }) {
 
 const mapStateToProps = (state) => ({
   state: state,
-  stateUser: state.userReducer,
+  stateAuth: state.authReducer.isLoggedIn,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  actionUsers: bindActionCreators(usersAction, dispatch),
+  actionRegister: bindActionCreators(authAction, dispatch),
 });
 
 const Connexion = connect(

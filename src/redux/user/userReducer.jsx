@@ -18,7 +18,6 @@ const initialState = {
   isLoadingDeleteUser: false,
 
   selectedUser: "",
-  loginInfo: {},
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -101,9 +100,6 @@ export const userReducer = (state = initialState, action) => {
       };
     case type.SELECT_USER:
       return { ...state, selectedUser: action.payload };
-    case type.SET_LOGIN_SUCCESS:
-      return { loginInfo: action.payload };
-
     default:
       return state;
   }

@@ -12,29 +12,35 @@ import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { bindActionCreators } from "redux";
-import * as usersAction from "../../redux/user/userAction";
+import * as authAction from "../../redux/authorization/actions/auth";
 
 import "./signup.scss";
 
-function InscriptionComponent({ actionUsers, stateUser }) {
+function InscriptionComponent({ actionRegister }) {
   const history = useHistory();
   const [presentAlert] = useIonAlert();
+  const [loginUser, setLoginUser] = useState("");
   const [emailUser, setEmailUser] = useState("");
   const [passwordUser, setPasswordUser] = useState("");
   const newUser = {
+    usrLoginUsr: loginUser,
     usrEmailUsr: emailUser,
     usrPasswordUsr: passwordUser,
   };
 
-  useEffect(() => {
-    actionUsers.getUsers();
-  }, []);
+  useEffect(() => {}, []);
 
   const formChecker = (newUser) => {
-    if (newUser.usrEmailUsr === "") {
+    if (newUser.usrLoginUsr === "") {
       presentAlert({
         header: "Identifiant vide",
         message: "Veuillez renseigner votre identifiant.",
+        buttons: ["OK"],
+      });
+    } else if (newUser.usrEmailUsr === "") {
+      presentAlert({
+        header: "E-mail non renseigné",
+        message: "Merci de renseigner votre e-mail.",
         buttons: ["OK"],
       });
     } else if (newUser.usrPasswordUsr.length < 2) {
@@ -45,15 +51,27 @@ function InscriptionComponent({ actionUsers, stateUser }) {
       });
     } else {
       console.log(newUser);
-      actionUsers.getAddUser(newUser, (res) => {
+      actionRegister.register(newUser, (res) => {
+        console.log(res);
         if (res.status === 200) {
           console.log("OK");
+          setLoginUser("");
           setEmailUser("");
           setPasswordUser("");
           history.push("/confirmation");
         } else if (
           res.data.message ===
           "L'identifiant est déjà utilisé, merci d'en choisir un autre."
+        ) {
+          console.log("NOT OK");
+          presentAlert({
+            header: "Erreur",
+            message: res.data.message,
+            buttons: ["OK"],
+          });
+        } else if (
+          res.data.message ===
+          "Cet e-mail est déjà utilisé, merci d'en renseigner un autre."
         ) {
           console.log("NOT OK");
           presentAlert({
@@ -73,8 +91,18 @@ function InscriptionComponent({ actionUsers, stateUser }) {
           <IonItem>
             <IonLabel position="floating">Identifiant</IonLabel>
             <IonInput
+              value={loginUser}
+              clearInput
+              type="text"
+              onIonChange={(e) => setLoginUser(e.detail.value)}
+            ></IonInput>
+          </IonItem>
+          <IonItem>
+            <IonLabel position="floating">E-mail</IonLabel>
+            <IonInput
               value={emailUser}
               clearInput
+              type="email"
               onIonChange={(e) => setEmailUser(e.detail.value)}
             ></IonInput>
           </IonItem>
@@ -110,7 +138,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  actionUsers: bindActionCreators(usersAction, dispatch),
+  actionRegister: bindActionCreators(authAction, dispatch),
 });
 
 const Inscription = connect(

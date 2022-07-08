@@ -1,6 +1,5 @@
 import * as types from "./userType";
 import { HomesonoAPI } from "../../util/WsCaller";
-import { todayOutline } from "ionicons/icons";
 
 export const setAddUser = () => ({
   type: types.SET_ADD_USER,
@@ -53,44 +52,10 @@ export const selectUser = (data) => ({
   type: types.SELECT_USER,
   payload: data,
 });
-export const setLoginSuccess = (data) => ({
-  type: types.SET_LOGIN_SUCCESS,
-  payload: data,
-});
 
 //=================================================================
 //=========================== MIDDLEWARE ==========================
 //=================================================================
-
-export const getAddUser = (body, callback) => (dispatch) => {
-  dispatch(setAddUser());
-  HomesonoAPI.post("/signup", body)
-    .then((res) => {
-      if (res.status === 200) {
-        dispatch(setAddUserSuccess(res.data));
-      }
-      callback(res);
-    })
-    .catch((err) => {
-      // dispatch(setAddUserError(err.data));
-      callback(err.response);
-    });
-};
-
-export const postLogUser = (body, callback) => (dispatch) => {
-  dispatch(setAddUser());
-  HomesonoAPI.post("/login", body)
-    .then((res) => {
-      if (res.status === 200) {
-        // dispatch(setLoginSuccess(res));
-      }
-      callback(res);
-    })
-    .catch((err) => {
-      // dispatch(setAddUserError(err.data));
-      callback(err.response);
-    });
-};
 
 export const getUsers = () => (dispatch) => {
   dispatch(setUser());

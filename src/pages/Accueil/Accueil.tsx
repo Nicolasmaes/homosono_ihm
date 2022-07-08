@@ -4,10 +4,15 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
+  IonButton,
+  IonLabel,
+  useIonAlert,
 } from "@ionic/react";
 import "./Accueil.css";
 
 const AccueilPage: React.FC = () => {
+  const [presentAlert] = useIonAlert();
+
   return (
     <IonPage>
       <IonHeader collapse="condense">
