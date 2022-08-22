@@ -4,13 +4,14 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
-  useIonAlert,
-} from "@ionic/react";
+} from /*   useIonAlert,
+ */ "@ionic/react";
+import Accueil from "../../components/accueil/accueil";
 import "./Accueil.css";
 
 const AccueilPage: React.FC = () => {
-  const [presentAlert] = useIonAlert();
-
+  /*   const [presentAlert] = useIonAlert();
+   */
   return (
     <IonPage>
       <IonHeader collapse="condense">
@@ -30,6 +31,7 @@ const AccueilPage: React.FC = () => {
       <IonContent fullscreen>
         <h1>Bienvenue sur HomeSono</h1>
         <h2>Phrase d'accroche</h2>
+        <Accueil />
       </IonContent>
     </IonPage>
   );

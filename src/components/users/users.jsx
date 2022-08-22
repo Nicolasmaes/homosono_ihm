@@ -30,8 +30,10 @@ function UsersComponent({ actionUsers, stateUser }) {
       return (
         <div className="singleCat">
           <IonItem>
+            <ion-label>{e.usrLoginUsr}</ion-label>
             <ion-label>{e.usrEmailUsr}</ion-label>
             <ion-label>{e.usrPasswordUsr}</ion-label>
+            <ion-label>{e.usrRoleRolFK?.rolNameRol}</ion-label>
             <IonButton
               routerLink={`user/${e.usrIdUsrPK}`}
               className="fancy-button"
@@ -82,6 +84,12 @@ function UsersComponent({ actionUsers, stateUser }) {
             Créer un nouvel utilisateur
           </IonButton>
         </div>
+        <IonItem>
+          <ion-label>login</ion-label>
+          <ion-label>email</ion-label>
+          <ion-label>password</ion-label>
+          <ion-label>role</ion-label>
+        </IonItem>
         <ion-list>{dynamicLink()}</ion-list>
         <IonAlert
           isOpen={createAlert}
@@ -115,7 +123,7 @@ function UsersComponent({ actionUsers, stateUser }) {
               text: "Ajouter",
               handler: (body) => {
                 console.log(body);
-                actionUsers.getAddUser(body);
+                actionUsers.register(body);
               },
             },
           ]}
@@ -154,7 +162,7 @@ function UsersComponent({ actionUsers, stateUser }) {
             {
               text: "Modifier",
               handler: (body) => {
-                // let emojiToString = name.emoji.codePointAt(0);
+                console.log(body);
                 actionUsers.getUpdateUser(idUser, body);
               },
             },

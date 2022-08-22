@@ -71,8 +71,9 @@ export const selectCategory = (data) => ({
 
 export const getAddCategorie = (body) => (dispatch) => {
   dispatch(setAddCategorie());
-  /*   let emojiToSend = encodeURIComponent(emoji);
-   */ HomesonoAPI.post("/categories", body)
+  HomesonoAPI.post("/categories", body, {
+    headers: { Authorization: `Bearer ${localStorage.getItem("user")}` },
+  })
     .then((res) => {
       dispatch(setAddCategorieSuccess(res.data));
     })
@@ -108,8 +109,10 @@ export const getCategorieList = () => (dispatch) => {
 
 export const getUpdateCategorie = (id, name) => (dispatch) => {
   dispatch(setUpdateCategorie());
-  // let emojiToSend = encodeURIComponent(emoji);
-  HomesonoAPI.put("/categories/" + id + "/" + name)
+  // HomesonoAPI.put("/categories/" + id + "/" + name)
+  HomesonoAPI.put("/categories/" + id, name, {
+    headers: { Authorization: `Bearer ${localStorage.getItem("user")}` },
+  })
     .then((res) => {
       dispatch(setUpdateCategorieSuccess(res.data));
     })
@@ -121,7 +124,9 @@ export const getUpdateCategorie = (id, name) => (dispatch) => {
 
 export const getDeleteCategorie = (id) => (dispatch) => {
   dispatch(setDeleteCategorie());
-  HomesonoAPI.delete("/categories/" + id)
+  HomesonoAPI.delete("/categories/" + id, {
+    headers: { Authorization: `Bearer ${localStorage.getItem("user")}` },
+  })
     .then((res) => {
       dispatch(setDeleteCategorieSuccess(res.data));
     })

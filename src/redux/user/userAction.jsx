@@ -68,9 +68,37 @@ export const getUsers = () => (dispatch) => {
     });
 };
 
+export const getAddUser = (body) => (dispatch) => {
+  dispatch(setAddUser());
+  HomesonoAPI.post("/signup", body)
+    .then((res) => {
+      dispatch(setAddUserSuccess(res.data));
+    })
+    .catch((err) => {
+      dispatch(setAddUserError(err.data));
+    });
+};
+
+export const register = (userToAdd, callback) => (dispatch) => {
+  HomesonoAPI.post("/signup", userToAdd)
+    .then((response) => {
+      console.log(response);
+      dispatch(setAddUserSuccess(response.data));
+      console.log("dans le then");
+      callback(response);
+    })
+    .catch((err) => {
+      console.log("dans le catch");
+      callback(err.response);
+      dispatch(setAddUserError(err.data));
+    });
+};
+
 export const getUpdateUser = (id, body) => (dispatch) => {
   dispatch(setUpdateUser());
-  HomesonoAPI.put("/users/" + id, body)
+  HomesonoAPI.put("/users/" + id, body, {
+    headers: { Authorization: `Bearer ${localStorage.getItem("user")}` },
+  })
     .then((res) => {
       dispatch(setUpdateUserSuccess(res.data));
     })
@@ -78,10 +106,14 @@ export const getUpdateUser = (id, body) => (dispatch) => {
       dispatch(setUpdateUserError(err.data));
     });
 };
+/* https://stackoverflow.com/questions/40988238/sending-the-bearer-token-with-axios
+cette doc est utile pour envoyer le token lors de chaque appel */
 
 export const getDeleteUser = (id) => (dispatch) => {
   dispatch(setDeleteUser());
-  HomesonoAPI.delete("/users/" + id)
+  HomesonoAPI.delete("/users/" + id, {
+    headers: { Authorization: `Bearer ${localStorage.getItem("user")}` },
+  })
     .then((res) => {
       dispatch(setDeleteUserSuccess(res.data));
     })

@@ -60,6 +60,7 @@ export const userReducer = (state = initialState, action) => {
     case type.SET_UPDATE_USER:
       return { ...state, isLoadingUpdateUser: true };
     case type.SET_UPDATE_USER_SUCCESS:
+      console.log(action.payload);
       return {
         ...state,
         isLoadingUpdateUser: false,
@@ -67,7 +68,12 @@ export const userReducer = (state = initialState, action) => {
         errorUpdateUser: "",
         users: state.users.map((user) =>
           action.payload.usrIdUsrPK === user.usrIdUsrPK
-            ? { ...user, usrLoginUsr: action.payload.usrLoginUsr }
+            ? {
+                ...user,
+                usrLoginUsr: action.payload.usrLoginUsr,
+                usrEmailUsr: action.payload.usrEmailUsr,
+                usrPasswordUsr: action.payload.usrPasswordUsr,
+              }
             : user
         ),
       };

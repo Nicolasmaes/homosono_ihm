@@ -13,10 +13,11 @@ import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import * as authAction from "../../redux/authorization/actions/auth";
+import * as usersAction from "../../redux/user/userAction";
 
 import "./signup.scss";
 
-function InscriptionComponent({ actionRegister }) {
+function InscriptionComponent({ actionRegister, actionUsers }) {
   const history = useHistory();
   const [presentAlert] = useIonAlert();
   const [loginUser, setLoginUser] = useState("");
@@ -51,7 +52,7 @@ function InscriptionComponent({ actionRegister }) {
       });
     } else {
       console.log(newUser);
-      actionRegister.register(newUser, (res) => {
+      actionUsers.register(newUser, (res) => {
         console.log(res);
         if (res.status === 200) {
           console.log("OK");
@@ -139,6 +140,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   actionRegister: bindActionCreators(authAction, dispatch),
+  actionUsers: bindActionCreators(usersAction, dispatch),
 });
 
 const Inscription = connect(

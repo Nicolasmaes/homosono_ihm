@@ -15,8 +15,6 @@ function CategoriesComponent({ stateCategorie, actionCategorie }) {
   const [idCategory, setIdCategory] = useState("");
   const [emojiCategory, setEmojiCategory] = useState("");
 
-  // const [text, setText] = useState<string>();
-
   useEffect(() => {
     actionCategorie.getCategorieList();
   }, []);
@@ -24,15 +22,6 @@ function CategoriesComponent({ stateCategorie, actionCategorie }) {
   const chooseValue = () => {
     return stateCategorie.categorieList;
   };
-
-  /*   const displayEmoji = (e) => {
-    if (e.catEmojiCat !== "undefined") {
-      // return <ion-label>{String.fromCodePoint(e.catEmojiCat)}</ion-label>;
-      return <ion-label>{e.catEmojiCat}</ion-label>;
-    } else {
-      return <ion-label></ion-label>;
-    }
-  }; */
 
   const dynamicLink = () => {
     return chooseValue().map((e) => {
@@ -53,7 +42,6 @@ function CategoriesComponent({ stateCategorie, actionCategorie }) {
                   setIdCategory(e.catIdCatPK);
                   setEmojiCategory(e.catEmojiPK);
                   console.log(e);
-                  console.log(emojiCategory);
                   setUpdateAlert(true);
                 }}
               >
@@ -81,7 +69,6 @@ function CategoriesComponent({ stateCategorie, actionCategorie }) {
   return (
     <div className="categories container">
       <div className="headingSection">
-        {/* <h1 className="heading">Catégories</h1> */}
         <IonButton
           onClick={() => setCreateAlert(true)}
           expand="full"
@@ -114,7 +101,6 @@ function CategoriesComponent({ stateCategorie, actionCategorie }) {
           {
             text: "Ajouter",
             handler: (body) => {
-              /*               let emojiToString = name.emoji.codePointAt           */
               console.log(body);
               actionCategorie.getAddCategorie(body);
             },
@@ -132,12 +118,6 @@ function CategoriesComponent({ stateCategorie, actionCategorie }) {
             value: nameCategory,
             placeholder: "écrivez ici",
           },
-          // {
-          //   name: "emoji",
-          //   type: "text",
-          //   value: emojiCategory,
-          //   placeholder: "emoji",
-          // },
         ]}
         buttons={[
           {
@@ -149,12 +129,7 @@ function CategoriesComponent({ stateCategorie, actionCategorie }) {
           {
             text: "Modifier",
             handler: (name) => {
-              // let emojiToString = name.emoji.codePointAt(0);
-              actionCategorie.getUpdateCategorie(
-                idCategory,
-                name.name
-                // emojiToString
-              );
+              actionCategorie.getUpdateCategorie(idCategory, name.name);
             },
           },
         ]}
@@ -173,7 +148,6 @@ function CategoriesComponent({ stateCategorie, actionCategorie }) {
           {
             text: "Supprimer",
             handler: () => {
-              // let emojiToString = name.emoji.codePointAt(0);
               actionCategorie.getDeleteCategorie(idCategory);
             },
           },

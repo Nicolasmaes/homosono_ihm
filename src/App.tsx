@@ -7,8 +7,11 @@ import {
   IonTabBar,
   IonTabButton,
   IonTabs,
-  /* setupIonicReact, */
+  setupIonicReact,
 } from "@ionic/react";
+/*   setupIonicReact est utilisé pour bien raptrier tout le style d'Ionic
+https://stackoverflow.com/questions/71351489/ionic-react-styles-not-rendering-even-after-importing-the-styles-in-app-js
+ */
 import { IonReactRouter } from "@ionic/react-router";
 import { home, storefront, personCircleSharp } from "ionicons/icons";
 import Accueil from "./pages/Accueil/Accueil";
@@ -38,6 +41,11 @@ import "@ionic/react/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
+
+setupIonicReact();
+/*   setupIonicReact est utilisé pour bien raptrier tout le style d'Ionic
+https://stackoverflow.com/questions/71351489/ionic-react-styles-not-rendering-even-after-importing-the-styles-in-app-js
+ */
 
 const App: React.FC = () => (
   <IonApp>
