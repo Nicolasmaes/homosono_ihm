@@ -7,7 +7,7 @@ import {
   IonTabBar,
   IonTabButton,
   IonTabs,
-  setupIonicReact,
+  /* setupIonicReact, */
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import { home, storefront, personCircleSharp } from "ionicons/icons";
@@ -89,12 +89,10 @@ const App: React.FC = () => (
             <IonIcon icon={personCircleSharp} />
             <IonLabel>Inscription</IonLabel>
           </IonTabButton>
-          ;
           <IonTabButton tab="login" href="/login">
             <IonIcon icon={personCircleSharp} />
             <IonLabel>Connexion</IonLabel>
           </IonTabButton>
-          ;
         </IonTabBar>
       </IonTabs>
     </IonReactRouter>

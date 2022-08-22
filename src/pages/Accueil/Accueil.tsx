@@ -4,8 +4,6 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
-  IonButton,
-  IonLabel,
   useIonAlert,
 } from "@ionic/react";
 import "./Accueil.css";
