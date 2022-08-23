@@ -10,6 +10,11 @@ import {
   IonMenu,
   IonMenuToggle,
   IonRouterOutlet,
+  IonTab,
+  IonTabs,
+  IonBadge,
+  IonTabButton,
+  IonTabBar,
   IonTitle,
   IonToolbar,
   setupIonicReact,
@@ -25,7 +30,14 @@ import * as authAction from "../../redux/authorization/actions/auth";
 https://stackoverflow.com/questions/71351489/ionic-react-styles-not-rendering-even-after-importing-the-styles-in-app-js
  */
 import { IonReactRouter } from "@ionic/react-router";
-import { home, personCircleSharp, storefront } from "ionicons/icons";
+import {
+  home,
+  personCircle,
+  peopleCircle,
+  storefront,
+  cart,
+  logOut,
+} from "ionicons/icons";
 import Accueil from "../../pages/Accueil/Accueil";
 import Categories from "../../pages/Categories/Categories";
 import Login from "../../pages/Login/Login";
@@ -65,26 +77,27 @@ function AppComponent({ actionRegister, stateAuth, state }) {
 
   const [present] = useIonToast();
 
-  const UsersTab = () => {
+  const AdminMenu = () => {
     if (stateAuth) {
       return (
         <>
           <IonMenuToggle>
             <IonItem routerLink="/users">
-              <IonIcon icon={personCircleSharp} />
-              <IonLabel className="ion-padding">Utilisateurs</IonLabel>
+              <IonIcon icon={peopleCircle} />
+              <IonLabel className="ion-margin">Utilisateurs</IonLabel>
             </IonItem>
           </IonMenuToggle>
           <IonMenuToggle>
-            <IonItem routerLink="/signupLogin">
-              <IonIcon icon={personCircleSharp} />
-              <IonLabel className="ion-padding">Mon compte</IonLabel>
+            <IonItem routerLink="/users">
+              <IonIcon icon={personCircle} />
+              <IonLabel className="ion-margin">Mon compte</IonLabel>
             </IonItem>
           </IonMenuToggle>
         </>
       );
     }
   };
+
   const LogInLogOutButton = () => {
     if (stateAuth) {
       return (
@@ -96,9 +109,10 @@ function AppComponent({ actionRegister, stateAuth, state }) {
             routerLink="/accueil"
             onClick={() => {
               actionRegister.logout();
-              present("Vous êtes déconnecté.", 3000);
+              present("Vous êtes déconnecté.", 2000);
             }}
           >
+            <IonIcon slot="start" icon={logOut} />
             Déconnexion
           </IonButton>
         </IonMenuToggle>
@@ -133,46 +147,66 @@ function AppComponent({ actionRegister, stateAuth, state }) {
               <IonMenuToggle>
                 <IonItem routerLink="/accueil">
                   <IonIcon icon={home} />
-                  <IonLabel className="ion-padding">Accueil</IonLabel>
+                  <IonLabel className="ion-margin">Accueil</IonLabel>
                 </IonItem>
               </IonMenuToggle>
               <IonMenuToggle>
                 <IonItem routerLink="/categories">
                   <IonIcon icon={storefront} />
-                  <IonLabel className="ion-padding">Catégories</IonLabel>
+                  <IonLabel className="ion-margin">Catégories</IonLabel>
                 </IonItem>
               </IonMenuToggle>
-              {UsersTab()}
+              {AdminMenu()}
               {LogInLogOutButton()}
             </IonList>
           </IonContent>
         </IonMenu>
-        <IonRouterOutlet id="main">
-          <Route exact path="/accueil">
-            <Accueil />
-          </Route>
-          <Route exact path="/categories">
-            <Categories />
-          </Route>
-          <Route exact path="/categorie/:id">
-            <Categorie />
-          </Route>
-          <Route path="/users">
-            <Users />
-          </Route>
-          <Route exact path="/user/:id">
-            <User />
-          </Route>
-          <Route exact path="/signup">
-            <Signup />
-          </Route>
-          <Route exact path="/login">
-            <Login />
-          </Route>
-          <Route exact path="/">
-            <Redirect to="/accueil" />
-          </Route>
-        </IonRouterOutlet>
+        <IonTabs>
+          <IonRouterOutlet id="main">
+            <Route exact path="/accueil">
+              <Accueil />
+            </Route>
+            <Route exact path="/categories">
+              <Categories />
+            </Route>
+            <Route exact path="/categorie/:id">
+              <Categorie />
+            </Route>
+            <Route path="/users">
+              <Users />
+            </Route>
+            <Route exact path="/user/:id">
+              <User />
+            </Route>
+            <Route exact path="/signup">
+              <Signup />
+            </Route>
+            <Route exact path="/login">
+              <Login />
+            </Route>
+            <Route exact path="/">
+              <Redirect to="/accueil" />
+            </Route>
+          </IonRouterOutlet>
+          <IonTabBar slot="bottom">
+            <IonTabButton tab="accueil" href="/accueil">
+              <IonIcon icon={home} />
+              <IonLabel>Accueil</IonLabel>
+            </IonTabButton>
+            <IonTabButton tab="Categories" href="/categories">
+              <IonIcon icon={storefront} />
+              <IonLabel>Catégories</IonLabel>
+            </IonTabButton>
+            <IonTabButton tab="login" href="/login">
+              <IonIcon icon={personCircle} />
+              <IonLabel>Connexion</IonLabel>
+            </IonTabButton>{" "}
+            <IonTabButton tab="login" href="/login">
+              <IonIcon icon={cart} />
+              <IonLabel>Panier</IonLabel>
+            </IonTabButton>
+          </IonTabBar>
+        </IonTabs>
       </IonReactRouter>
     </IonApp>
   );

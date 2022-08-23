@@ -37,7 +37,7 @@ function ConnexionComponent({ actionRegister, stateAuth, state }) {
         setEmailUser("");
         setPasswordUser("");
         history.push("/accueil");
-        present("Vous êtes connecté.", 3000);
+        present("Vous êtes connecté.", 2000);
       } else {
         console.log("NOT OK");
         presentAlert({

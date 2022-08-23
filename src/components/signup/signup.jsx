@@ -63,13 +63,13 @@ function InscriptionComponent({ actionRegister, actionUsers }) {
             header: "Vous êtes bien inscrit !",
             buttons: [
               {
-                text: "Page de connexion",
+                text: "Aller à la page de connexion",
                 handler: () => {
                   history.push("/login");
                 },
               },
               {
-                text: "Page d'accueil",
+                text: "Aller à la page d'accueil",
                 handler: () => {
                   history.push("/accueil");
                 },
