@@ -59,7 +59,23 @@ function InscriptionComponent({ actionRegister, actionUsers }) {
           setLoginUser("");
           setEmailUser("");
           setPasswordUser("");
-          history.push("/confirmation");
+          presentAlert({
+            header: "Vous êtes bien inscrit !",
+            buttons: [
+              {
+                text: "Page de connexion",
+                handler: () => {
+                  history.push("/login");
+                },
+              },
+              {
+                text: "Page d'accueil",
+                handler: () => {
+                  history.push("/accueil");
+                },
+              },
+            ],
+          });
         } else if (
           res.data.message ===
           "L'identifiant est déjà utilisé, merci d'en choisir un autre."
@@ -118,14 +134,26 @@ function InscriptionComponent({ actionRegister, actionUsers }) {
           </IonItem>
 
           <IonButton
-            className="ion-margin-top"
+            className="ion-margin"
             type="submit"
+            slot="icon-only"
             expand="block"
             onClick={() => {
               formChecker(newUser);
             }}
           >
-            <IonIcon icon={sendSharp} />
+            <IonIcon icon={sendSharp} className="ion-padding" />
+          </IonButton>
+        </IonList>
+        <IonList className="ion-padding">
+          <p>Vous avez déjà un compte ?</p>
+          <IonButton
+            className="ion-margin"
+            type="submit"
+            expand="block"
+            routerLink="/login"
+          >
+            Connectez-vous ici
           </IonButton>
         </IonList>
       </div>

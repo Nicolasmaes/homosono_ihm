@@ -1,6 +1,8 @@
 import {
+  IonButtons,
   IonContent,
   IonHeader,
+  IonMenuButton,
   IonPage,
   IonTitle,
   IonToolbar,
@@ -10,27 +12,17 @@ import Accueil from "../../components/accueil/accueil";
 import "./Accueil.css";
 
 const AccueilPage: React.FC = () => {
-  /*   const [presentAlert] = useIonAlert();
-   */
   return (
     <IonPage>
-      <IonHeader collapse="condense">
-        <IonToolbar>
-          <IonTitle size="large" color="primary">
-            Accueil
-          </IonTitle>
-        </IonToolbar>
-      </IonHeader>
       <IonHeader>
         <IonToolbar>
-          <IonTitle size="large" color="primary">
-            Accueil
-          </IonTitle>
+          <IonTitle color="primary">Accueil</IonTitle>
+          <IonButtons slot="start">
+            <IonMenuButton menu="main-menu"></IonMenuButton>
+          </IonButtons>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen>
-        <h1>Bienvenue sur HomeSono</h1>
-        <h2>Phrase d'accroche</h2>
+      <IonContent fullscreen className="ion-padding">
         <Accueil />
       </IonContent>
     </IonPage>

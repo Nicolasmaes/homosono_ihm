@@ -2,7 +2,6 @@ import { IonAlert, IonButton, IonIcon, IonItem } from "@ionic/react";
 import { create, eye, trash } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { NavLink } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import * as categorieAction from "../../redux/categorie/categorieAction";
 import "./categories.scss";
@@ -13,7 +12,6 @@ function CategoriesComponent({ stateCategorie, actionCategorie }) {
   const [deleteAlert, setDeleteAlert] = useState(false);
   const [nameCategory, setNameCategory] = useState("");
   const [idCategory, setIdCategory] = useState("");
-  const [emojiCategory, setEmojiCategory] = useState("");
 
   useEffect(() => {
     actionCategorie.getCategorieList();
@@ -29,37 +27,33 @@ function CategoriesComponent({ stateCategorie, actionCategorie }) {
         <div className="singleCat">
           <IonItem>
             <ion-label>{e.catNameCat}</ion-label>
-            <NavLink to={`categorie/${e.catIdCatPK}`}>
-              <IonButton className="fancy-button" onClick={() => {}}>
-                <IonIcon icon={eye} />
-              </IonButton>
-            </NavLink>
-            <NavLink to="/categories">
-              <IonButton
-                className="fancy-button-reverse"
-                onClick={() => {
-                  setNameCategory(e.catNameCat);
-                  setIdCategory(e.catIdCatPK);
-                  setEmojiCategory(e.catEmojiPK);
-                  console.log(e);
-                  setUpdateAlert(true);
-                }}
-              >
-                <IonIcon icon={create} />
-              </IonButton>
-            </NavLink>
-            <NavLink to="/categories">
-              <IonButton
-                className="fancy-button-reverse"
-                onClick={() => {
-                  setNameCategory(e.catNameCat);
-                  setIdCategory(e.catIdCatPK);
-                  setDeleteAlert(true);
-                }}
-              >
-                <IonIcon icon={trash} />
-              </IonButton>
-            </NavLink>
+            <IonButton
+              className="fancy-button"
+              routerLink={`categorie/${e.catIdCatPK}`}
+            >
+              <IonIcon icon={eye} />
+            </IonButton>
+            <IonButton
+              className="fancy-button-reverse"
+              onClick={() => {
+                setNameCategory(e.catNameCat);
+                setIdCategory(e.catIdCatPK);
+                console.log(e);
+                setUpdateAlert(true);
+              }}
+            >
+              <IonIcon icon={create} />
+            </IonButton>
+            <IonButton
+              className="fancy-button-reverse"
+              onClick={() => {
+                setNameCategory(e.catNameCat);
+                setIdCategory(e.catIdCatPK);
+                setDeleteAlert(true);
+              }}
+            >
+              <IonIcon icon={trash} />
+            </IonButton>
           </IonItem>
         </div>
       );

@@ -1,6 +1,8 @@
 import {
+  IonButtons,
   IonContent,
   IonHeader,
+  IonMenuButton,
   IonPage,
   IonTitle,
   IonToolbar,
@@ -11,18 +13,12 @@ import "./Signup.css";
 const SigninPage: React.FC = () => {
   return (
     <IonPage>
-      <IonHeader collapse="condense">
-        <IonToolbar>
-          <IonTitle size="large" color="primary">
-            Inscription
-          </IonTitle>
-        </IonToolbar>
-      </IonHeader>
       <IonHeader>
         <IonToolbar>
-          <IonTitle size="large" color="primary">
-            Inscription
-          </IonTitle>
+          <IonTitle color="primary">Inscription</IonTitle>
+          <IonButtons slot="start">
+            <IonMenuButton menu="main-menu"></IonMenuButton>
+          </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>

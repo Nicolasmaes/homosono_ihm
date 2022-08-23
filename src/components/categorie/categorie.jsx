@@ -1,7 +1,10 @@
 import {
   IonButton,
+  IonButtons,
   IonContent,
   IonHeader,
+  IonLabel,
+  IonMenuButton,
   IonPage,
   IonTitle,
   IonToolbar,
@@ -12,7 +15,6 @@ import { useParams } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import * as categorieAction from "../../redux/categorie/categorieAction";
 
-import { NavLink } from "react-router-dom";
 import { getCatById } from "../../redux/categorie/categorieReducer";
 import "./categorie.scss";
 
@@ -29,21 +31,20 @@ function CategorieComponent({ stateCategorie, actionCategorie }) {
       <IonPage>
         <IonHeader>
           <IonToolbar>
-            <IonTitle>Catégorie</IonTitle>
+            <IonTitle color="primary">Catégorie</IonTitle>
+            <IonButtons slot="start">
+              <IonMenuButton menu="main-menu"></IonMenuButton>
+            </IonButtons>
           </IonToolbar>
         </IonHeader>
         <IonContent fullscreen>
-          <NavLink to="/categories">
-            <IonButton
-              shape="round"
-              color="primary"
-              onClick={() => {
-                actionCategorie.selectCategory("");
-              }}
-            >
-              <ion-label color="light">Retour aux catégories</ion-label>
-            </IonButton>
-          </NavLink>
+          <IonButton
+            color="primary"
+            routerLink="/categories"
+            className="ion-margin"
+          >
+            <IonLabel color="light">Retour aux catégories</IonLabel>
+          </IonButton>
           <p>{singleCat.catNameCat}</p>
           {/* <p>{stateCategorie.selectedCategory.catNameCat}</p> */}
         </IonContent>

@@ -1,6 +1,8 @@
 import {
+  IonButtons,
   IonContent,
   IonHeader,
+  IonMenuButton,
   IonPage,
   IonTitle,
   IonToolbar,
@@ -11,18 +13,12 @@ import "./Login.css";
 const LoginPage: React.FC = () => {
   return (
     <IonPage>
-      <IonHeader collapse="condense">
-        <IonToolbar>
-          <IonTitle size="large" color="primary">
-            Connexion
-          </IonTitle>
-        </IonToolbar>
-      </IonHeader>
       <IonHeader>
         <IonToolbar>
-          <IonTitle size="large" color="primary">
-            Connexion
-          </IonTitle>
+          <IonTitle color="primary">Connexion</IonTitle>
+          <IonButtons slot="start">
+            <IonMenuButton menu="main-menu"></IonMenuButton>
+          </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>

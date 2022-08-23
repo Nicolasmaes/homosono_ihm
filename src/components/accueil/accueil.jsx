@@ -1,7 +1,7 @@
 import { IonButton } from "@ionic/react";
-import React, { useEffect } from "react";
-import { bindActionCreators } from "redux";
+import { useEffect } from "react";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import * as authAction from "../../redux/authorization/actions/auth";
 import "./accueil.scss";
 
@@ -12,38 +12,12 @@ function AccueilComponent({ actionRegister, stateAuth, state }) {
   }, []);
 
   const dynamicLink = () => {
-    if (localStorage.user) {
-      return <h1>connecté</h1>;
-    } else {
-      return <h1>déconnecté</h1>;
-    }
-  };
-
-  const logOutButton = () => {
     if (stateAuth) {
-      return (
-        <IonButton
-          className="ion-margin-top"
-          type="submit"
-          expand="block"
-          onClick={() => {
-            actionRegister.logout();
-          }}
-        >
-          se déconnecter
-        </IonButton>
-      );
+      return <h1>Bienvenue {}</h1>;
     } else {
       return (
-        <IonButton
-          className="ion-margin-top"
-          type="submit"
-          expand="block"
-          onClick={() => {
-            actionRegister.logout();
-          }}
-        >
-          se connecter
+        <IonButton className="ion-margin" type="submit" routerLink="/login">
+          Connectez-vous pour en voir plus
         </IonButton>
       );
     }
@@ -51,14 +25,9 @@ function AccueilComponent({ actionRegister, stateAuth, state }) {
 
   return (
     <>
-      <div className="accueil ">
-        <ion-list>
-          {" "}
-          Vous êtes
-          {dynamicLink()}
-        </ion-list>
-        {logOutButton()}
-      </div>
+      <h1>Bienvenue sur HomeSono</h1>
+      <h2>Phrase d'accroche</h2>
+      {dynamicLink()}
     </>
   );
 }

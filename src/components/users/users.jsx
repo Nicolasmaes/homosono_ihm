@@ -1,4 +1,4 @@
-import { IonAlert, IonButton, IonIcon, IonItem } from "@ionic/react";
+import { IonAlert, IonButton, IonIcon, IonItem, IonLabel } from "@ionic/react";
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -30,14 +30,13 @@ function UsersComponent({ actionUsers, stateUser }) {
       return (
         <div className="singleCat">
           <IonItem>
-            <ion-label>{e.usrLoginUsr}</ion-label>
-            <ion-label>{e.usrEmailUsr}</ion-label>
-            <ion-label>{e.usrPasswordUsr}</ion-label>
-            <ion-label>{e.usrRoleRolFK?.rolNameRol}</ion-label>
+            <IonLabel>{e.usrLoginUsr}</IonLabel>
+            <IonLabel>{e.usrEmailUsr}</IonLabel>
+            <IonLabel>{e.usrPasswordUsr}</IonLabel>
+            <IonLabel>{e.usrRoleRolFK?.rolNameRol}</IonLabel>
             <IonButton
               routerLink={`user/${e.usrIdUsrPK}`}
               className="fancy-button"
-              onClick={() => {}}
             >
               <IonIcon icon={eye} />
             </IonButton>
@@ -84,12 +83,12 @@ function UsersComponent({ actionUsers, stateUser }) {
             Créer un nouvel utilisateur
           </IonButton>
         </div>
-        <IonItem>
-          <ion-label>login</ion-label>
-          <ion-label>email</ion-label>
-          <ion-label>password</ion-label>
-          <ion-label>role</ion-label>
-        </IonItem>
+        <ion-list-header>
+          <IonLabel color="light">Login</IonLabel>
+          <IonLabel color="light">Roles</IonLabel>
+          <IonLabel color="light">Mail</IonLabel>
+          <IonLabel color="light">Mot de passe</IonLabel>
+        </ion-list-header>
         <ion-list>{dynamicLink()}</ion-list>
         <IonAlert
           isOpen={createAlert}

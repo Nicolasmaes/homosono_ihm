@@ -6,6 +6,7 @@ import {
   IonLabel,
   IonList,
   useIonAlert,
+  useIonToast,
 } from "@ionic/react";
 import { sendSharp } from "ionicons/icons";
 import { useEffect, useState } from "react";
@@ -24,6 +25,8 @@ function ConnexionComponent({ actionRegister, stateAuth, state }) {
     usrEmailUsr: emailUser,
     usrPasswordUsr: passwordUser,
   };
+  const [present] = useIonToast();
+
   useEffect(() => {}, []);
 
   const formChecker = (userToLog) => {
@@ -33,7 +36,8 @@ function ConnexionComponent({ actionRegister, stateAuth, state }) {
         console.log("OK");
         setEmailUser("");
         setPasswordUser("");
-        // history.push("/confirmation");
+        history.push("/accueil");
+        present("Vous êtes connecté.", 3000);
       } else {
         console.log("NOT OK");
         presentAlert({
@@ -46,30 +50,9 @@ function ConnexionComponent({ actionRegister, stateAuth, state }) {
     });
   };
 
-  const dynamicLink = () => {
-    if (localStorage.user) {
-      return <h1>connecté</h1>;
-    } else {
-      return <h1>déconnecté</h1>;
-    }
-  };
-
-  const logOutButton = () => {
-    if (stateAuth) {
-      return (
-        <IonButton
-          className="ion-margin-top"
-          type="submit"
-          expand="block"
-          onClick={() => {
-            actionRegister.logout();
-          }}
-        >
-          se déconnecter
-        </IonButton>
-      );
-    } else {
-      return (
+  return (
+    <>
+      <div className="connexion ">
         <IonList className="ion-padding">
           <IonItem>
             <IonLabel position="floating">Identifiant</IonLabel>
@@ -89,9 +72,8 @@ function ConnexionComponent({ actionRegister, stateAuth, state }) {
               onIonChange={(e) => setPasswordUser(e.detail.value)}
             ></IonInput>
           </IonItem>
-
           <IonButton
-            className="ion-margin-top"
+            className="ion-margin"
             type="submit"
             expand="block"
             onClick={() => {
@@ -101,29 +83,17 @@ function ConnexionComponent({ actionRegister, stateAuth, state }) {
             <IonIcon icon={sendSharp} />
           </IonButton>
         </IonList>
-      );
-    }
-  };
-
-  return (
-    <>
-      <div className="connexion ">
-        <IonButton
-          className="ion-margin-top"
-          type="submit"
-          expand="block"
-          onClick={() => {
-            console.log(stateAuth);
-          }}
-        >
-          STATEAUTH{" "}
-        </IonButton>
-        <ion-list>
-          {" "}
-          Vous êtes
-          {dynamicLink()}
-        </ion-list>
-        {logOutButton()}
+        <IonList className="ion-padding">
+          <p>Vous n'avez pas encore de compte ?</p>
+          <IonButton
+            className="ion-margin"
+            type="submit"
+            expand="block"
+            routerLink="/signup"
+          >
+            Inscrivez-vous ici{" "}
+          </IonButton>{" "}
+        </IonList>
       </div>
     </>
   );

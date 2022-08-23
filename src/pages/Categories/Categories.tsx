@@ -1,6 +1,8 @@
 import {
+  IonButtons,
   IonContent,
   IonHeader,
+  IonMenuButton,
   IonPage,
   IonTitle,
   IonToolbar,
@@ -12,18 +14,12 @@ import "./Categories.css";
 const CategoriesPage: React.FC = () => {
   return (
     <IonPage>
-      <IonHeader collapse="condense">
-        <IonToolbar>
-          <IonTitle size="large" color="primary">
-            Catégories
-          </IonTitle>
-        </IonToolbar>
-      </IonHeader>
       <IonHeader>
         <IonToolbar>
-          <IonTitle size="large" color="primary">
-            Catégories
-          </IonTitle>
+          <IonTitle color="primary">Catégories</IonTitle>
+          <IonButtons slot="start">
+            <IonMenuButton menu="main-menu"></IonMenuButton>
+          </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>

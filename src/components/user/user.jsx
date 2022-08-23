@@ -1,7 +1,10 @@
 import {
   IonButton,
+  IonButtons,
   IonContent,
   IonHeader,
+  IonLabel,
+  IonMenuButton,
   IonPage,
   IonTitle,
   IonToolbar,
@@ -12,7 +15,6 @@ import { useParams } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import * as usersAction from "../../redux/user/userAction";
 
-import { NavLink } from "react-router-dom";
 import { getUserById } from "../../redux/user/userReducer";
 import "./user.scss";
 
@@ -28,32 +30,18 @@ function UserComponent({ actionUsers, stateUser }) {
   return (
     <>
       <IonPage>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large" color="primary">
-              Utilisateur
-            </IonTitle>
-          </IonToolbar>
-        </IonHeader>
         <IonHeader>
           <IonToolbar>
-            <IonTitle size="large" color="primary">
-              Utilisateur
-            </IonTitle>
+            <IonTitle color="primary">Utilisateur</IonTitle>
+            <IonButtons slot="start">
+              <IonMenuButton menu="main-menu"></IonMenuButton>
+            </IonButtons>
           </IonToolbar>
         </IonHeader>
         <IonContent fullscreen>
-          <NavLink to="/users">
-            <IonButton
-              shape="round"
-              color="primary"
-              onClick={() => {
-                actionUsers.selectCategory("");
-              }}
-            >
-              <ion-label color="light">Retour aux utilisateurs</ion-label>
-            </IonButton>
-          </NavLink>
+          <IonButton color="primary" routerLink="/users" className="ion-margin">
+            <IonLabel color="light">Retour aux utilisateurs</IonLabel>
+          </IonButton>
           <p>{singleUser.usrEmailUsr}</p>
         </IonContent>
       </IonPage>
