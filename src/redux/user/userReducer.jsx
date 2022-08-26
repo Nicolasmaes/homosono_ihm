@@ -18,6 +18,7 @@ const initialState = {
   isLoadingDeleteUser: false,
 
   selectedUser: "",
+  currentUserLoggedIn: "",
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -106,6 +107,19 @@ export const userReducer = (state = initialState, action) => {
       };
     case type.SELECT_USER:
       return { ...state, selectedUser: action.payload };
+
+    case type.SET_WHOAMI:
+      return { ...state, isLoadingAddUser: true };
+    case type.SET_WHOAMI_SUCCESS:
+      return {
+        ...state,
+        currentUserLoggedIn: action.payload,
+      };
+    case type.SET_WHOAMI_ERROR:
+      return {
+        ...state,
+        currentUserLoggedIn: action.payload,
+      };
     default:
       return state;
   }

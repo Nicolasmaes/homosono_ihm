@@ -7,6 +7,10 @@ import {
   IonList,
   useIonAlert,
   useIonToast,
+  IonRouterLink,
+  IonGrid,
+  IonRow,
+  IonCol,
 } from "@ionic/react";
 import { sendSharp } from "ionicons/icons";
 import { useEffect, useState } from "react";
@@ -19,11 +23,11 @@ import "./login.scss";
 function ConnexionComponent({ actionRegister, stateAuth, state }) {
   const history = useHistory();
   const [presentAlert] = useIonAlert();
-  const [emailUser, setEmailUser] = useState("");
+  const [loginUser, setLoginUser] = useState("");
   const [passwordUser, setPasswordUser] = useState("");
   const userToLog = {
-    usrEmailUsr: emailUser,
-    usrPasswordUsr: passwordUser,
+    email: loginUser,
+    password: passwordUser,
   };
   const [present] = useIonToast();
 
@@ -31,13 +35,44 @@ function ConnexionComponent({ actionRegister, stateAuth, state }) {
 
   const formChecker = (userToLog) => {
     console.log(userToLog);
+    if (userToLog.email === "") {
+      presentAlert({
+        header: "E-mail non renseigné",
+        message: "Merci de renseigner votre e-mail.",
+        buttons: ["OK"],
+      });
+    } else if (userToLog.password === "") {
+      presentAlert({
+        header: "Mot de passe non renseigné",
+        message: "Merci de renseigner votre mot de passe.",
+        buttons: ["OK"],
+      });
+    }
     actionRegister.login(userToLog, (res) => {
-      if (res.status === 200) {
+      if (res.status === 403) {
+        console.log("NOT OK");
+        presentAlert({
+          header: "Erreur d'authentification",
+          message: "Mot de passe erroné",
+          buttons: ["OK"],
+        });
+      } else if (res.status === 200) {
         console.log("OK");
-        setEmailUser("");
+        setLoginUser("");
         setPasswordUser("");
         history.push("/accueil");
-        present("Vous êtes connecté.", 2000);
+        present({
+          message: "Vous êtes connecté",
+          duration: 1000,
+          position: "top",
+        });
+      } else if (res.data.message === "Cet e-mail est inconnu") {
+        console.log("NOT OK");
+        presentAlert({
+          header: "Erreur",
+          message: res.data.message,
+          buttons: ["OK"],
+        });
       } else {
         console.log("NOT OK");
         presentAlert({
@@ -55,12 +90,12 @@ function ConnexionComponent({ actionRegister, stateAuth, state }) {
       <div className="connexion ">
         <IonList className="ion-padding">
           <IonItem>
-            <IonLabel position="floating">Identifiant</IonLabel>
+            <IonLabel position="floating">E-mail</IonLabel>
             <IonInput
-              value={emailUser}
+              value={loginUser}
               clearInput
               clearOnEdit
-              onIonChange={(e) => setEmailUser(e.detail.value)}
+              onIonChange={(e) => setLoginUser(e.detail.value)}
             ></IonInput>
           </IonItem>
           <IonItem>
@@ -84,15 +119,18 @@ function ConnexionComponent({ actionRegister, stateAuth, state }) {
           </IonButton>
         </IonList>
         <IonList className="ion-padding">
-          <p>Vous n'avez pas encore de compte ?</p>
-          <IonButton
-            className="ion-margin"
-            type="submit"
-            expand="block"
-            routerLink="/signup"
-          >
-            Inscrivez-vous ici{" "}
-          </IonButton>{" "}
+          <IonGrid>
+            <IonRow>
+              <IonCol>
+                <div class="ion-text-center">
+                  <p>Vous n'avez pas encore de compte ?</p>
+                  <IonRouterLink routerLink="/signup">
+                    Inscrivez-vous ici
+                  </IonRouterLink>
+                </div>
+              </IonCol>
+            </IonRow>
+          </IonGrid>
         </IonList>
       </div>
     </>

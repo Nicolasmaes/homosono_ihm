@@ -1,17 +1,27 @@
-import { IonAlert, IonButton, IonIcon, IonItem } from "@ionic/react";
+import {
+  IonAlert,
+  IonButton,
+  IonIcon,
+  IonSearchbar,
+  IonItem,
+  IonToolbar,
+} from "@ionic/react";
 import { create, eye, trash } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as categorieAction from "../../redux/categorie/categorieAction";
+import * as authAction from "../../redux/authorization/actions/auth";
+
 import "./categories.scss";
 
-function CategoriesComponent({ stateCategorie, actionCategorie }) {
+function CategoriesComponent({ stateCategorie, actionCategorie, stateAuth }) {
   const [createAlert, setCreateAlert] = useState(false);
   const [updateAlert, setUpdateAlert] = useState(false);
   const [deleteAlert, setDeleteAlert] = useState(false);
   const [nameCategory, setNameCategory] = useState("");
   const [idCategory, setIdCategory] = useState("");
+  const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     actionCategorie.getCategorieList();
@@ -21,7 +31,7 @@ function CategoriesComponent({ stateCategorie, actionCategorie }) {
     return stateCategorie.categorieList;
   };
 
-  const dynamicLink = () => {
+  const categoryList = () => {
     return chooseValue().map((e) => {
       return (
         <div className="singleCat">
@@ -59,21 +69,34 @@ function CategoriesComponent({ stateCategorie, actionCategorie }) {
       );
     });
   };
+  const createCategory = () => {
+    // if (stateAuth) {
+    return (
+      <IonButton
+        onClick={() => setCreateAlert(true)}
+        expand="full"
+        color="primary"
+        shape="round"
+        strong="true"
+      >
+        Créer une nouvelle catégorie
+      </IonButton>
+    );
+    // }
+  };
 
   return (
     <div className="categories container">
       <div className="headingSection">
-        <IonButton
-          onClick={() => setCreateAlert(true)}
-          expand="full"
-          color="primary"
-          shape="round"
-          strong="true"
-        >
-          Créer une nouvelle catégorie
-        </IonButton>
+        <IonSearchbar
+          value={searchText}
+          inputMode="search"
+          showCancelButton="never"
+          placeholder="Rechercher un produit"
+        ></IonSearchbar>
       </div>
-      <ion-list>{dynamicLink()}</ion-list>
+      {createCategory()}
+      <ion-list>{categoryList()}</ion-list>
       <IonAlert
         isOpen={createAlert}
         onDidDismiss={() => setCreateAlert(false)}
@@ -154,6 +177,7 @@ function CategoriesComponent({ stateCategorie, actionCategorie }) {
 const mapStateToProps = (state) => ({
   state: state,
   stateCategorie: state.categorieReducer,
+  stateAuth: state.authReducer.isLoggedIn,
 });
 
 const mapDispatchToProps = (dispatch) => ({

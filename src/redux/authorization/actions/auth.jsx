@@ -2,7 +2,7 @@ import * as types from "../types";
 import { HomesonoAPI } from "../../../util/WsCaller";
 
 export const register = (userToAdd, callback) => (dispatch) => {
-  HomesonoAPI.post("/signup", userToAdd)
+  HomesonoAPI.post("/auth/signup", userToAdd)
     .then((response) => {
       console.log(response);
       dispatch({
@@ -17,7 +17,7 @@ export const register = (userToAdd, callback) => (dispatch) => {
     });
 };
 export const login = (userToLog, callback) => (dispatch) => {
-  HomesonoAPI.post("/login", userToLog)
+  HomesonoAPI.post("/auth/login", userToLog)
     .then((response) => {
       dispatch({
         type: types.LOGIN_SUCCESS,
@@ -29,6 +29,23 @@ export const login = (userToLog, callback) => (dispatch) => {
       callback(response);
     })
     .catch((err) => {
+      callback(err.response);
+    });
+};
+export const whoami = (callback) => (dispatch) => {
+  HomesonoAPI.get("/auth/whoami", {
+    headers: { Authorization: `Bearer ${localStorage.getItem("user")}` },
+  })
+    .then((response) => {
+      dispatch({
+        type: types.WHOAMI_SUCCESS,
+        payload: { user: response },
+      });
+      console.log("dans le then");
+      callback(response);
+    })
+    .catch((err) => {
+      console.log("dans le catch");
       callback(err.response);
     });
 };

@@ -78,8 +78,7 @@ export const getAddCategorie = (body) => (dispatch) => {
       dispatch(setAddCategorieSuccess(res.data));
     })
     .catch((err) => {
-      /* 		dispatch(removeAuth(err.response.status))
-       */ dispatch(setAddCategorieError(err.data));
+      dispatch(setAddCategorieError(err.data));
     });
 };
 
@@ -90,26 +89,25 @@ export const getCategorieById = (id) => (dispatch) => {
       dispatch(setCategorieSuccess(res.data));
     })
     .catch((err) => {
-      /* 		dispatch(removeAuth(err.response.status))
-       */ dispatch(setCategorieError(err.data));
+      dispatch(setCategorieError(err.data));
     });
 };
 
 export const getCategorieList = () => (dispatch) => {
   dispatch(setCategorieList());
-  HomesonoAPI.get("/categories")
+  HomesonoAPI.get("/categories", {
+    headers: { Authorization: `Bearer ${localStorage.getItem("user")}` },
+  })
     .then((res) => {
       dispatch(setCategorieListSuccess(res.data));
     })
     .catch((err) => {
-      /* 		dispatch(removeAuth(err.response.status))
-       */ dispatch(setCategorieListError(err.data));
+      dispatch(setCategorieListError(err.data));
     });
 };
 
 export const getUpdateCategorie = (id, name) => (dispatch) => {
   dispatch(setUpdateCategorie());
-  // HomesonoAPI.put("/categories/" + id + "/" + name)
   HomesonoAPI.put("/categories/" + id, name, {
     headers: { Authorization: `Bearer ${localStorage.getItem("user")}` },
   })
@@ -117,8 +115,7 @@ export const getUpdateCategorie = (id, name) => (dispatch) => {
       dispatch(setUpdateCategorieSuccess(res.data));
     })
     .catch((err) => {
-      /* 		dispatch(removeAuth(err.response.status))
-       */ dispatch(setUpdateCategorieError(err.data));
+      dispatch(setUpdateCategorieError(err.data));
     });
 };
 
@@ -131,7 +128,6 @@ export const getDeleteCategorie = (id) => (dispatch) => {
       dispatch(setDeleteCategorieSuccess(res.data));
     })
     .catch((err) => {
-      /* 		dispatch(removeAuth(err.response.status))
-       */ dispatch(setDeleteCategorieError(err.data));
+      dispatch(setDeleteCategorieError(err.data));
     });
 };

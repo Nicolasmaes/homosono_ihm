@@ -31,6 +31,10 @@ export const authReducer = (state = initialState, action) => {
         isLoggedIn: false,
         user: null,
       };
+    case types.WHOAMI_SUCCESS:
+      return {
+        ...state,
+      };
     case types.LOGOUT:
       return {
         ...state,

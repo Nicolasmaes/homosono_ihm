@@ -10,11 +10,9 @@ import {
   IonMenu,
   IonMenuToggle,
   IonRouterOutlet,
-  IonTab,
-  IonTabs,
-  IonBadge,
-  IonTabButton,
   IonTabBar,
+  IonTabButton,
+  IonTabs,
   IonTitle,
   IonToolbar,
   setupIonicReact,
@@ -31,12 +29,14 @@ https://stackoverflow.com/questions/71351489/ionic-react-styles-not-rendering-ev
  */
 import { IonReactRouter } from "@ionic/react-router";
 import {
-  home,
-  personCircle,
-  peopleCircle,
-  storefront,
   cart,
+  home,
+  logIn,
   logOut,
+  peopleCircle,
+  personCircle,
+  storefront,
+  close,
 } from "ionicons/icons";
 import Accueil from "../../pages/Accueil/Accueil";
 import Categories from "../../pages/Categories/Categories";
@@ -98,6 +98,17 @@ function AppComponent({ actionRegister, stateAuth, state }) {
     }
   };
 
+  const whoami = () => {
+    actionRegister.whoami((res) => {
+      console.log(res);
+      if (res.status === 200) {
+        console.log("OK");
+      } else {
+        console.log("NOT OK");
+      }
+    });
+  };
+
   const LogInLogOutButton = () => {
     if (stateAuth) {
       return (
@@ -109,7 +120,11 @@ function AppComponent({ actionRegister, stateAuth, state }) {
             routerLink="/accueil"
             onClick={() => {
               actionRegister.logout();
-              present("Vous êtes déconnecté.", 2000);
+              present({
+                message: "Vous êtes déconnecté",
+                duration: 1000,
+                position: "top",
+              });
             }}
           >
             <IonIcon slot="start" icon={logOut} />
@@ -126,6 +141,7 @@ function AppComponent({ actionRegister, stateAuth, state }) {
             expand="block"
             routerLink="/login"
           >
+            <IonIcon slot="start" icon={logIn} />
             Connexion
           </IonButton>
         </IonMenuToggle>
@@ -138,9 +154,18 @@ function AppComponent({ actionRegister, stateAuth, state }) {
       <IonReactRouter>
         <IonMenu menuId="main-menu" contentId="main">
           <IonHeader>
-            <IonToolbar>
-              <IonTitle>Menu</IonTitle>
-            </IonToolbar>
+            <IonMenuToggle>
+              <IonToolbar>
+                <IonTitle>Menu</IonTitle>
+                <IonIcon
+                  icon={close}
+                  size="large"
+                  slot="end"
+                  className="ion-margin"
+                  color="primary"
+                />
+              </IonToolbar>
+            </IonMenuToggle>
           </IonHeader>
           <IonContent>
             <IonList>
@@ -153,10 +178,20 @@ function AppComponent({ actionRegister, stateAuth, state }) {
               <IonMenuToggle>
                 <IonItem routerLink="/categories">
                   <IonIcon icon={storefront} />
-                  <IonLabel className="ion-margin">Catégories</IonLabel>
+                  <IonLabel className="ion-margin">Produits</IonLabel>
                 </IonItem>
               </IonMenuToggle>
               {AdminMenu()}
+              <IonButton
+                className="ion-margin"
+                type="submit"
+                expand="block"
+                onClick={() => {
+                  whoami();
+                }}
+              >
+                Qui suis-je
+              </IonButton>
               {LogInLogOutButton()}
             </IonList>
           </IonContent>
@@ -195,12 +230,12 @@ function AppComponent({ actionRegister, stateAuth, state }) {
             </IonTabButton>
             <IonTabButton tab="Categories" href="/categories">
               <IonIcon icon={storefront} />
-              <IonLabel>Catégories</IonLabel>
+              <IonLabel>Produits</IonLabel>
             </IonTabButton>
             <IonTabButton tab="login" href="/login">
               <IonIcon icon={personCircle} />
-              <IonLabel>Connexion</IonLabel>
-            </IonTabButton>{" "}
+              <IonLabel>Mon compte</IonLabel>
+            </IonTabButton>
             <IonTabButton tab="login" href="/login">
               <IonIcon icon={cart} />
               <IonLabel>Panier</IonLabel>
