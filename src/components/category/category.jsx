@@ -13,17 +13,19 @@ import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import { bindActionCreators } from "redux";
-import * as categorieAction from "../../redux/categorie/categorieAction";
+import * as categoryAction from "../../redux/category/categoryAction";
 
-import { getCatById } from "../../redux/categorie/categorieReducer";
-import "./categorie.scss";
+import { getCatById } from "../../redux/category/categoryReducer";
+import "./category.scss";
 
-function CategorieComponent({ stateCategorie, actionCategorie }) {
+function CategoryComponent({ stateCategory, actionCategory }) {
   const params = useParams();
   const [singleCat, setSingleCat] = useState({});
 
   useEffect(() => {
-    setSingleCat(getCatById(stateCategorie, parseInt(params.id)));
+    console.log(singleCat);
+    setSingleCat(getCatById(stateCategory, parseInt(params.id)));
+    // actionCategory.getCategoryById(params.id);
   }, [params]);
 
   return (
@@ -32,6 +34,16 @@ function CategorieComponent({ stateCategorie, actionCategorie }) {
         <IonHeader>
           <IonToolbar>
             <IonTitle color="primary">Catégorie</IonTitle>
+            <IonButton
+              className="ion-margin"
+              type="submit"
+              expand="block"
+              onClick={() => {
+                console.log(stateCategory);
+              }}
+            >
+              Bouton utile
+            </IonButton>
             <IonButtons slot="start">
               <IonMenuButton menu="main-menu"></IonMenuButton>
             </IonButtons>
@@ -46,7 +58,7 @@ function CategorieComponent({ stateCategorie, actionCategorie }) {
             <IonLabel color="light">Retour aux catégories</IonLabel>
           </IonButton>
           <p>{singleCat.catNameCat}</p>
-          {/* <p>{stateCategorie.selectedCategory.catNameCat}</p> */}
+          {/* {stateCategory.categorie.catNameCat} */}
         </IonContent>
       </IonPage>
     </>
@@ -55,15 +67,15 @@ function CategorieComponent({ stateCategorie, actionCategorie }) {
 
 const mapStateToProps = (state) => ({
   state: state,
-  stateCategorie: state.categorieReducer,
+  stateCategory: state.categoryReducer,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  actionCategorie: bindActionCreators(categorieAction, dispatch),
+  actionCategory: bindActionCreators(categoryAction, dispatch),
 });
 
 const Categorie = connect(
   mapStateToProps,
   mapDispatchToProps
-)(CategorieComponent);
+)(CategoryComponent);
 export default Categorie;

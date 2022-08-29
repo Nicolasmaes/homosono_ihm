@@ -1,4 +1,4 @@
-import * as type from "./categorieType";
+import * as type from "./categoryType";
 
 const initialState = {
   addCategorie: [],
@@ -20,22 +20,20 @@ const initialState = {
   deleteCategorie: [],
   errorDeleteCategorie: "",
   isLoadingDeleteCategorie: false,
-
-  selectedCategory: "",
 };
 
-export const categorieReducer = (state = initialState, action) => {
+export const categoryReducer = (state = initialState, action) => {
   switch (action.type) {
-    case type.SET_ADD_CATEGORIE:
+    case type.SET_ADD_CATEGORY:
       return { ...state, isLoadingAddCategorie: true };
-    case type.SET_ADD_CATEGORIE_SUCCESS:
+    case type.SET_ADD_CATEGORY_SUCCESS:
       return {
         ...state,
         isLoadingAddCategorie: false,
         categorieList: [...state.categorieList, action.payload],
         errorAddCategorie: "",
       };
-    case type.SET_ADD_CATEGORIE_ERROR:
+    case type.SET_ADD_CATEGORY_ERROR:
       return {
         ...state,
         isLoadingAddCategorie: false,
@@ -43,16 +41,16 @@ export const categorieReducer = (state = initialState, action) => {
         errorAddCategorie: action.payload,
       };
 
-    case type.SET_CATEGORIE:
+    case type.SET_CATEGORY:
       return { ...state, isLoadingCategorie: true };
-    case type.SET_CATEGORIE_SUCCESS:
+    case type.SET_CATEGORY_SUCCESS:
       return {
         ...state,
         isLoadingCategorie: false,
         categorie: action.payload,
         errorCategorie: "",
       };
-    case type.SET_CATEGORIE_ERROR:
+    case type.SET_CATEGORY_ERROR:
       return {
         ...state,
         isLoadingCategorie: false,
@@ -60,16 +58,16 @@ export const categorieReducer = (state = initialState, action) => {
         errorCategorie: action.payload,
       };
 
-    case type.SET_CATEGORIE_LIST:
+    case type.SET_CATEGORIES_LIST:
       return { ...state, isLoadingCategorieList: true };
-    case type.SET_CATEGORIE_LIST_SUCCESS:
+    case type.SET_CATEGORIES_LIST_SUCCESS:
       return {
         ...state,
         isLoadingCategorieList: false,
         categorieList: action.payload,
         errorCategorieList: "",
       };
-    case type.SET_CATEGORIE_LIST_ERROR:
+    case type.SET_CATEGORIES_LIST_ERROR:
       return {
         ...state,
         isLoadingCategorieList: false,
@@ -77,9 +75,9 @@ export const categorieReducer = (state = initialState, action) => {
         errorCategorieList: action.payload,
       };
 
-    case type.SET_UPDATE_CATEGORIE:
+    case type.SET_UPDATE_CATEGORY:
       return { ...state, isLoadingUpdateCategorie: true };
-    case type.SET_UPDATE_CATEGORIE_SUCCESS:
+    case type.SET_UPDATE_CATEGORY_SUCCESS:
       return {
         ...state,
         categorieList: state.categorieList.map((categorie) =>
@@ -88,7 +86,7 @@ export const categorieReducer = (state = initialState, action) => {
             : categorie
         ),
       };
-    case type.SET_UPDATE_CATEGORIE_ERROR:
+    case type.SET_UPDATE_CATEGORY_ERROR:
       return {
         ...state,
         isLoadingUpdateCategorie: false,
@@ -96,10 +94,10 @@ export const categorieReducer = (state = initialState, action) => {
         errorUpdateCategorie: action.payload,
       };
 
-    case type.SET_DELETE_CATEGORIE:
+    case type.SET_DELETE_CATEGORY:
       return { ...state, isLoadingDeleteCategorie: true };
 
-    case type.SET_DELETE_CATEGORIE_SUCCESS:
+    case type.SET_DELETE_CATEGORY_SUCCESS:
       return {
         ...state,
         isLoadingDeleteCategorie: false,
@@ -109,22 +107,19 @@ export const categorieReducer = (state = initialState, action) => {
           (e) => e.catIdCatPK !== action.payload.catIdCatPK
         ),
       };
-    case type.SET_DELETE_CATEGORIE_ERROR:
+    case type.SET_DELETE_CATEGORY_ERROR:
       return {
         ...state,
         isLoadingDeleteCategorie: false,
         deleteCategorie: [],
         errorDeleteCategorie: action.payload,
       };
-    case type.SELECT_CATEGORY:
-      return { ...state, selectedCategory: action.payload };
-
     default:
       return state;
   }
 };
 
-export default categorieReducer;
+export default categoryReducer;
 
 export const getCatById = (state, id) => {
   return state.categorieList.find((el) => el.catIdCatPK === id);

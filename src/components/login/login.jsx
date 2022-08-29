@@ -1,16 +1,16 @@
 import {
   IonButton,
+  IonCol,
+  IonGrid,
   IonIcon,
   IonInput,
   IonItem,
   IonLabel,
   IonList,
+  IonRouterLink,
+  IonRow,
   useIonAlert,
   useIonToast,
-  IonRouterLink,
-  IonGrid,
-  IonRow,
-  IonCol,
 } from "@ionic/react";
 import { sendSharp } from "ionicons/icons";
 import { useEffect, useState } from "react";
@@ -18,15 +18,16 @@ import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import * as authAction from "../../redux/authorization/actions/auth";
+
 import "./login.scss";
 
-function ConnexionComponent({ actionRegister, stateAuth, state }) {
+function ConnexionComponent({ actionRegister }) {
   const history = useHistory();
   const [presentAlert] = useIonAlert();
-  const [loginUser, setLoginUser] = useState("");
+  const [usernameOrEmailUser, setUsernameOrEmaiUser] = useState("");
   const [passwordUser, setPasswordUser] = useState("");
   const userToLog = {
-    email: loginUser,
+    param: usernameOrEmailUser,
     password: passwordUser,
   };
   const [present] = useIonToast();
@@ -58,15 +59,16 @@ function ConnexionComponent({ actionRegister, stateAuth, state }) {
         });
       } else if (res.status === 200) {
         console.log("OK");
-        setLoginUser("");
+        setUsernameOrEmaiUser("");
         setPasswordUser("");
         history.push("/accueil");
+        actionRegister.whoami();
         present({
           message: "Vous êtes connecté",
           duration: 1000,
           position: "top",
         });
-      } else if (res.data.message === "Cet e-mail est inconnu") {
+      } else if (res.data.message === "Cet utilisateur est inconnu") {
         console.log("NOT OK");
         presentAlert({
           header: "Erreur",
@@ -89,13 +91,14 @@ function ConnexionComponent({ actionRegister, stateAuth, state }) {
     <>
       <div className="connexion ">
         <IonList className="ion-padding">
+          nicolas.maes1@gmail.com
           <IonItem>
-            <IonLabel position="floating">E-mail</IonLabel>
+            <IonLabel position="floating">username</IonLabel>
             <IonInput
-              value={loginUser}
+              value={usernameOrEmailUser}
               clearInput
               clearOnEdit
-              onIonChange={(e) => setLoginUser(e.detail.value)}
+              onIonChange={(e) => setUsernameOrEmaiUser(e.detail.value)}
             ></IonInput>
           </IonItem>
           <IonItem>

@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
-import categorieReducer from './categorie/categorieReducer';
+import categoryReducer from './category/categoryReducer';
 import userReducer from './user/userReducer';
 import authReducer from "./authorization/reducers/authReducer";
 import messageReducer from "./authorization/reducers/messageReducer";
 
 
 const rootReducer = combineReducers({
-      categorieReducer,
+      categoryReducer,
       userReducer,
       authReducer,
       messageReducer,

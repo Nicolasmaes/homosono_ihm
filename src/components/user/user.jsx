@@ -23,7 +23,7 @@ function UserComponent({ actionUsers, stateUser }) {
   const [singleUser, setSingleUser] = useState({});
 
   useEffect(() => {
-    console.log("page affichée");
+    console.log(singleUser);
     setSingleUser(getUserById(stateUser, parseInt(params.id)));
   }, [params]);
 
@@ -42,7 +42,7 @@ function UserComponent({ actionUsers, stateUser }) {
           <IonButton color="primary" routerLink="/users" className="ion-margin">
             <IonLabel color="light">Retour aux utilisateurs</IonLabel>
           </IonButton>
-          <p>{singleUser.usrEmailUsr}</p>
+          <p>{singleUser.email}</p>
         </IonContent>
       </IonPage>
     </>

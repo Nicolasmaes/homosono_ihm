@@ -1,70 +1,75 @@
-import { IonButton, IonLabel } from "@ionic/react";
+import { IonButton, useIonToast } from "@ionic/react";
 import { useEffect } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as authAction from "../../redux/authorization/actions/auth";
-import * as usersAction from "../../redux/user/userAction";
-
 import "./accueil.scss";
 
-function AccueilComponent({
-  actionRegister,
-  stateAuth,
-  state,
-  actionUsers,
-  stateUser,
-}) {
-  useEffect(() => {
-    /*     console.log(state);
-     */
-  }, []);
+function AccueilComponent({ actionRegister, stateAuth, state }) {
+  useEffect(() => {}, []);
+  const [present] = useIonToast();
 
-  const dynamicLink = () => {
-    if (stateAuth) {
-      return <h1>Bienvenue {}</h1>;
+  const conditionalLinks = () => {
+    if (stateAuth.isLoggedIn) {
+      return (
+        <>
+          <h1>Bienvenue {stateAuth.currentUserLoggedIn.username}</h1>
+          <IonButton
+            className="ion-margin"
+            type="submit"
+            expand="block"
+            routerLink="/accueil"
+            onClick={() => {
+              actionRegister.logout();
+              present({
+                message: "Vous êtes déconnecté",
+                duration: 1000,
+                position: "top",
+              });
+            }}
+          >
+            Déconnexion
+          </IonButton>
+        </>
+      );
     } else {
       return (
-        <IonButton className="ion-margin" type="submit" routerLink="/login">
-          Connectez-vous pour en voir plus
-        </IonButton>
+        <>
+          <IonButton className="ion-margin" type="submit" routerLink="/login">
+            Connectez-vous pour en voir plus
+          </IonButton>
+        </>
       );
     }
-  };
-
-  const whoami = () => {
-    actionUsers.whoami(() => {});
   };
 
   return (
     <>
       <h1>Bienvenue sur HomeSono</h1>
       <h2>Phrase d'accroche</h2>
-      {dynamicLink()}
       <IonButton
         className="ion-margin"
         type="submit"
         expand="block"
+        routerLink="/accueil"
         onClick={() => {
-          whoami();
-          console.log(stateUser.currentUserLoggedIn.email);
+          console.log(stateAuth);
         }}
       >
-        Qui suis-je
+        Bouton utile{" "}
       </IonButton>
-      {stateUser.currentUserLoggedIn.email}
+      {conditionalLinks()}
     </>
   );
 }
 
 const mapStateToProps = (state) => ({
   state: state,
-  stateAuth: state.authReducer.isLoggedIn,
-  stateUser: state.userReducer,
+  stateAuth: state.authReducer,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   actionRegister: bindActionCreators(authAction, dispatch),
-  actionUsers: bindActionCreators(usersAction, dispatch),
 });
 
 const Accueil = connect(mapStateToProps, mapDispatchToProps)(AccueilComponent);

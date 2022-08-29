@@ -1,10 +1,25 @@
-import * as types from "../types";
 import { HomesonoAPI } from "../../../util/WsCaller";
+import * as types from "../types";
+
+export const setWhoAmI = () => ({
+  type: types.SET_WHOAMI,
+});
+export const setWhoAmISuccess = (data) => ({
+  type: types.SET_WHOAMI_SUCCESS,
+  payload: data,
+});
+export const setWhoAmIError = (data) => ({
+  type: types.SET_WHOAMI_ERROR,
+  payload: data,
+});
+
+//=================================================================
+//=========================== MIDDLEWARE ==========================
+//=================================================================
 
 export const register = (userToAdd, callback) => (dispatch) => {
   HomesonoAPI.post("/auth/signup", userToAdd)
     .then((response) => {
-      console.log(response);
       dispatch({
         type: types.REGISTER_SUCCESS,
       });
@@ -17,6 +32,8 @@ export const register = (userToAdd, callback) => (dispatch) => {
     });
 };
 export const login = (userToLog, callback) => (dispatch) => {
+  console.log(userToLog);
+
   HomesonoAPI.post("/auth/login", userToLog)
     .then((response) => {
       dispatch({
@@ -32,23 +49,20 @@ export const login = (userToLog, callback) => (dispatch) => {
       callback(err.response);
     });
 };
-export const whoami = (callback) => (dispatch) => {
+
+export const whoami = () => (dispatch) => {
+  dispatch(setWhoAmI());
   HomesonoAPI.get("/auth/whoami", {
     headers: { Authorization: `Bearer ${localStorage.getItem("user")}` },
   })
-    .then((response) => {
-      dispatch({
-        type: types.WHOAMI_SUCCESS,
-        payload: { user: response },
-      });
-      console.log("dans le then");
-      callback(response);
+    .then((res) => {
+      dispatch(setWhoAmISuccess(res.data));
     })
     .catch((err) => {
-      console.log("dans le catch");
-      callback(err.response);
+      dispatch(setWhoAmIError(err.data));
     });
 };
+
 export const logout = () => (dispatch) => {
   localStorage.removeItem("user");
   dispatch({

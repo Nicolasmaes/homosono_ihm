@@ -30,20 +30,20 @@ https://stackoverflow.com/questions/71351489/ionic-react-styles-not-rendering-ev
 import { IonReactRouter } from "@ionic/react-router";
 import {
   cart,
+  close,
   home,
   logIn,
   logOut,
   peopleCircle,
   personCircle,
   storefront,
-  close,
 } from "ionicons/icons";
 import Accueil from "../../pages/Accueil/Accueil";
 import Categories from "../../pages/Categories/Categories";
 import Login from "../../pages/Login/Login";
 import Signup from "../../pages/Signup/Signup";
 import Users from "../../pages/Users/Users";
-import Categorie from "../categorie/categorie";
+import Categorie from "../category/category";
 import User from "../user/user";
 
 /* Core CSS required for Ionic components to work properly */
@@ -71,9 +71,7 @@ https://stackoverflow.com/questions/71351489/ionic-react-styles-not-rendering-ev
  */
 
 function AppComponent({ actionRegister, stateAuth, state }) {
-  useEffect(() => {
-    console.log(stateAuth);
-  }, []);
+  useEffect(() => {}, []);
 
   const [present] = useIonToast();
 
@@ -97,16 +95,15 @@ function AppComponent({ actionRegister, stateAuth, state }) {
       );
     }
   };
-
-  const whoami = () => {
-    actionRegister.whoami((res) => {
-      console.log(res);
-      if (res.status === 200) {
-        console.log("OK");
-      } else {
-        console.log("NOT OK");
-      }
-    });
+  const AdminTab = () => {
+    if (stateAuth) {
+      return (
+        <IonTabButton tab="login" href="/login">
+          <IonIcon icon={cart} />
+          <IonLabel>Panier</IonLabel>
+        </IonTabButton>
+      );
+    }
   };
 
   const LogInLogOutButton = () => {
@@ -182,16 +179,6 @@ function AppComponent({ actionRegister, stateAuth, state }) {
                 </IonItem>
               </IonMenuToggle>
               {AdminMenu()}
-              <IonButton
-                className="ion-margin"
-                type="submit"
-                expand="block"
-                onClick={() => {
-                  whoami();
-                }}
-              >
-                Qui suis-je
-              </IonButton>
               {LogInLogOutButton()}
             </IonList>
           </IonContent>
@@ -236,10 +223,7 @@ function AppComponent({ actionRegister, stateAuth, state }) {
               <IonIcon icon={personCircle} />
               <IonLabel>Mon compte</IonLabel>
             </IonTabButton>
-            <IonTabButton tab="login" href="/login">
-              <IonIcon icon={cart} />
-              <IonLabel>Panier</IonLabel>
-            </IonTabButton>
+            {AdminTab()}
           </IonTabBar>
         </IonTabs>
       </IonReactRouter>

@@ -3,8 +3,8 @@ import * as types from "../types";
 const user = localStorage.getItem("user");
 
 const initialState = user
-  ? { isLoggedIn: true, user }
-  : { isLoggedIn: false, user: null };
+  ? { isLoggedIn: true, currentUserLoggedIn: "", user }
+  : { isLoggedIn: false, currentUserLoggedIn: "", user: null };
 
 export const authReducer = (state = initialState, action) => {
   const { type, payload } = action;
@@ -31,15 +31,24 @@ export const authReducer = (state = initialState, action) => {
         isLoggedIn: false,
         user: null,
       };
-    case types.WHOAMI_SUCCESS:
-      return {
-        ...state,
-      };
     case types.LOGOUT:
       return {
         ...state,
         isLoggedIn: false,
         user: null,
+        currentUserLoggedIn: "",
+      };
+    case types.SET_WHOAMI:
+      return { ...state };
+    case types.SET_WHOAMI_SUCCESS:
+      return {
+        ...state,
+        currentUserLoggedIn: action.payload,
+      };
+    case types.SET_WHOAMI_ERROR:
+      return {
+        ...state,
+        currentUserLoggedIn: action.payload,
       };
     default:
       return state;

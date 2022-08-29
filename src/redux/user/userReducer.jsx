@@ -16,9 +16,6 @@ const initialState = {
   deleteUser: [],
   errorDeleteUser: "",
   isLoadingDeleteUser: false,
-
-  selectedUser: "",
-  currentUserLoggedIn: "",
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -61,19 +58,18 @@ export const userReducer = (state = initialState, action) => {
     case type.SET_UPDATE_USER:
       return { ...state, isLoadingUpdateUser: true };
     case type.SET_UPDATE_USER_SUCCESS:
-      console.log(action.payload);
       return {
         ...state,
         isLoadingUpdateUser: false,
         updateUser: action.payload,
         errorUpdateUser: "",
         users: state.users.map((user) =>
-          action.payload.usrIdUsrPK === user.usrIdUsrPK
+          action.payload.id === user.id
             ? {
                 ...user,
-                usrLoginUsr: action.payload.usrLoginUsr,
-                usrEmailUsr: action.payload.usrEmailUsr,
-                usrPasswordUsr: action.payload.usrPasswordUsr,
+                username: action.payload.username,
+                email: action.payload.email,
+                password: action.payload.password,
               }
             : user
         ),
@@ -105,21 +101,6 @@ export const userReducer = (state = initialState, action) => {
         deleteUser: [],
         errorDeleteUser: action.payload,
       };
-    case type.SELECT_USER:
-      return { ...state, selectedUser: action.payload };
-
-    case type.SET_WHOAMI:
-      return { ...state, isLoadingAddUser: true };
-    case type.SET_WHOAMI_SUCCESS:
-      return {
-        ...state,
-        currentUserLoggedIn: action.payload,
-      };
-    case type.SET_WHOAMI_ERROR:
-      return {
-        ...state,
-        currentUserLoggedIn: action.payload,
-      };
     default:
       return state;
   }
@@ -128,5 +109,5 @@ export const userReducer = (state = initialState, action) => {
 export default userReducer;
 
 export const getUserById = (state, id) => {
-  return state.users.find((el) => el.usrIdUsrPK === id);
+  return state.users.find((el) => el.id === id);
 };

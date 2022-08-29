@@ -48,21 +48,6 @@ export const setDeleteUserError = (data) => ({
   type: types.SET_DELETE_USER_ERROR,
   payload: data,
 });
-export const setWhoAmI = () => ({
-  type: types.SET_WHOAMI,
-});
-export const setWhoAmISuccess = (data) => ({
-  type: types.SET_WHOAMI_SUCCESS,
-  payload: data,
-});
-export const setWhoAmIError = (data) => ({
-  type: types.SET_WHOAMI_ERROR,
-  payload: data,
-});
-export const selectUser = (data) => ({
-  type: types.SELECT_USER,
-  payload: data,
-});
 
 //=================================================================
 //=========================== MIDDLEWARE ==========================
@@ -81,25 +66,12 @@ export const getUsers = () => (dispatch) => {
 
 export const getAddUser = (body) => (dispatch) => {
   dispatch(setAddUser());
-  HomesonoAPI.post("/signup", body)
+  HomesonoAPI.post("/users", body)
     .then((res) => {
       dispatch(setAddUserSuccess(res.data));
     })
     .catch((err) => {
       dispatch(setAddUserError(err.data));
-    });
-};
-
-export const whoami = () => (dispatch) => {
-  dispatch(setWhoAmI());
-  HomesonoAPI.get("/auth/whoami", {
-    headers: { Authorization: `Bearer ${localStorage.getItem("user")}` },
-  })
-    .then((res) => {
-      dispatch(setWhoAmISuccess(res.data));
-    })
-    .catch((err) => {
-      dispatch(setWhoAmIError(err.data));
     });
 };
 

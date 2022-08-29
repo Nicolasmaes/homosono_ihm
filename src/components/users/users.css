@@ -1,0 +1,20 @@
+.users {
+  background: linear-gradient(90deg, #d0cdce 20.25%, rgb(114, 197, 250) 80.25%);
+  height: 50vh;
+  align-items: center;
+  justify-content: center;
+}
+.users .headingSection {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.users h1 {
+  color: white;
+}
+.users .fancy-button {
+  --background: linear-gradient(90deg, rgb(54, 247, 170), rgb(194, 172, 176), rgb(37, 164, 97));
+}
+.users .fancy-button-reverse {
+  --background: linear-gradient(90deg, #f34968, #f34867, #f78736);
+}/*# sourceMappingURL=users.css.map */

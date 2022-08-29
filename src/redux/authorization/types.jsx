@@ -1,8 +1,14 @@
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const REGISTER_FAIL = "REGISTER_FAIL";
+
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAIL = "LOGIN_FAIL";
-export const WHOAMI_SUCCESS = "WHOAMI_SUCCESS";
-export const LOGOUT = "LOGOUT";
+
 export const SET_MESSAGE = "SET_MESSAGE";
 export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
+
+export const SET_WHOAMI = "SET_WHOAMI";
+export const SET_WHOAMI_SUCCESS = "SET_WHOAMI_SUCCESS";
+export const SET_WHOAMI_ERROR = "SET_WHOAMI_ERROR";
+
+export const LOGOUT = "LOGOUT";

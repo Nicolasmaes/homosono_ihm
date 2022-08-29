@@ -2,20 +2,18 @@ import {
   IonAlert,
   IonButton,
   IonIcon,
-  IonSearchbar,
   IonItem,
-  IonToolbar,
+  IonSearchbar,
 } from "@ionic/react";
 import { create, eye, trash } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import * as categorieAction from "../../redux/categorie/categorieAction";
-import * as authAction from "../../redux/authorization/actions/auth";
+import * as categoryAction from "../../redux/category/categoryAction";
 
 import "./categories.scss";
 
-function CategoriesComponent({ stateCategorie, actionCategorie, stateAuth }) {
+function CategoriesComponent({ stateCategory, actionCategory, stateAuth }) {
   const [createAlert, setCreateAlert] = useState(false);
   const [updateAlert, setUpdateAlert] = useState(false);
   const [deleteAlert, setDeleteAlert] = useState(false);
@@ -24,11 +22,11 @@ function CategoriesComponent({ stateCategorie, actionCategorie, stateAuth }) {
   const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
-    actionCategorie.getCategorieList();
+    actionCategory.getCategoriesList();
   }, []);
 
   const chooseValue = () => {
-    return stateCategorie.categorieList;
+    return stateCategory.categorieList;
   };
 
   const categoryList = () => {
@@ -87,6 +85,16 @@ function CategoriesComponent({ stateCategorie, actionCategorie, stateAuth }) {
 
   return (
     <div className="categories container">
+      <IonButton
+        className="ion-margin"
+        type="submit"
+        expand="block"
+        onClick={() => {
+          console.log(stateCategory);
+        }}
+      >
+        Bouton utile
+      </IonButton>
       <div className="headingSection">
         <IonSearchbar
           value={searchText}
@@ -119,7 +127,7 @@ function CategoriesComponent({ stateCategorie, actionCategorie, stateAuth }) {
             text: "Ajouter",
             handler: (body) => {
               console.log(body);
-              actionCategorie.getAddCategorie(body);
+              actionCategory.getAddCategory(body);
             },
           },
         ]}
@@ -146,7 +154,7 @@ function CategoriesComponent({ stateCategorie, actionCategorie, stateAuth }) {
           {
             text: "Modifier",
             handler: (name) => {
-              actionCategorie.getUpdateCategorie(idCategory, name.name);
+              actionCategory.getUpdateCategory(idCategory, name.name);
             },
           },
         ]}
@@ -165,7 +173,7 @@ function CategoriesComponent({ stateCategorie, actionCategorie, stateAuth }) {
           {
             text: "Supprimer",
             handler: () => {
-              actionCategorie.getDeleteCategorie(idCategory);
+              actionCategory.getDeleteCategory(idCategory);
             },
           },
         ]}
@@ -176,12 +184,12 @@ function CategoriesComponent({ stateCategorie, actionCategorie, stateAuth }) {
 
 const mapStateToProps = (state) => ({
   state: state,
-  stateCategorie: state.categorieReducer,
+  stateCategory: state.categoryReducer,
   stateAuth: state.authReducer.isLoggedIn,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  actionCategorie: bindActionCreators(categorieAction, dispatch),
+  actionCategory: bindActionCreators(categoryAction, dispatch),
 });
 
 const Categories = connect(
