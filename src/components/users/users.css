@@ -13,8 +13,13 @@
   color: white;
 }
 .users .fancy-button {
-  --background: linear-gradient(90deg, rgb(54, 247, 170), rgb(194, 172, 176), rgb(37, 164, 97));
+  --background: linear-gradient(
+    90deg,
+    rgb(54, 247, 170),
+    rgb(194, 172, 176),
+    rgb(37, 164, 97)
+  );
 }
 .users .fancy-button-reverse {
   --background: linear-gradient(90deg, #f34968, #f34867, #f78736);
-}/*# sourceMappingURL=users.css.map */
+} /*# sourceMappingURL=users.css.map */

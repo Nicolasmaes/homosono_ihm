@@ -11,4 +11,8 @@ export const SET_WHOAMI = "SET_WHOAMI";
 export const SET_WHOAMI_SUCCESS = "SET_WHOAMI_SUCCESS";
 export const SET_WHOAMI_ERROR = "SET_WHOAMI_ERROR";
 
+export const SET_REFRESH = "SET_REFRESH";
+export const SET_REFRESH_SUCCESS = "SET_REFRESH_SUCCESS";
+export const SET_REFRESH_ERROR = "SET_REFRESH_ERROR";
+
 export const LOGOUT = "LOGOUT";

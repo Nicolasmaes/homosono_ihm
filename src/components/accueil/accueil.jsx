@@ -1,12 +1,16 @@
 import { IonButton, useIonToast } from "@ionic/react";
 import { useEffect } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as authAction from "../../redux/authorization/actions/auth";
 import "./accueil.scss";
 
-function AccueilComponent({ actionRegister, stateAuth, state }) {
-  useEffect(() => {}, []);
+function AccueilComponent({ actionRegister, stateAuth }) {
+  useEffect(() => {
+    actionRegister.whoami();
+  }, []);
+
   const [present] = useIonToast();
 
   const conditionalLinks = () => {
@@ -53,10 +57,10 @@ function AccueilComponent({ actionRegister, stateAuth, state }) {
         expand="block"
         routerLink="/accueil"
         onClick={() => {
-          console.log(stateAuth);
+          actionRegister.whoami();
         }}
       >
-        Bouton utile{" "}
+        whoami
       </IonButton>
       {conditionalLinks()}
     </>
@@ -64,7 +68,6 @@ function AccueilComponent({ actionRegister, stateAuth, state }) {
 }
 
 const mapStateToProps = (state) => ({
-  state: state,
   stateAuth: state.authReducer,
 });
 

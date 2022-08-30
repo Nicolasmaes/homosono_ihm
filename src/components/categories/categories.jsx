@@ -29,18 +29,14 @@ function CategoriesComponent({ stateCategory, actionCategory, stateAuth }) {
     return stateCategory.categorieList;
   };
 
-  const categoryList = () => {
-    return chooseValue().map((e) => {
-      return (
-        <div className="singleCat">
-          <IonItem>
-            <ion-label>{e.catNameCat}</ion-label>
-            <IonButton
-              className="fancy-button"
-              routerLink={`categorie/${e.catIdCatPK}`}
-            >
-              <IonIcon icon={eye} />
-            </IonButton>
+  const categoriesList = () => {
+    const AdminButton = (e) => {
+      if (
+        stateAuth.isLoggedIn &&
+        stateAuth.currentUserLoggedIn.role === "ADMIN"
+      ) {
+        return (
+          <>
             <IonButton
               className="fancy-button-reverse"
               onClick={() => {
@@ -62,6 +58,23 @@ function CategoriesComponent({ stateCategory, actionCategory, stateAuth }) {
             >
               <IonIcon icon={trash} />
             </IonButton>
+          </>
+        );
+      }
+    };
+
+    return chooseValue().map((e) => {
+      return (
+        <div className="singleCat">
+          <IonItem>
+            <ion-label>{e.catNameCat}</ion-label>
+            <IonButton
+              className="fancy-button"
+              routerLink={`categorie/${e.catIdCatPK}`}
+            >
+              <IonIcon icon={eye} />
+            </IonButton>
+            {AdminButton(e)}
           </IonItem>
         </div>
       );
@@ -71,11 +84,9 @@ function CategoriesComponent({ stateCategory, actionCategory, stateAuth }) {
     // if (stateAuth) {
     return (
       <IonButton
+        className="ion-margin"
+        expand="block"
         onClick={() => setCreateAlert(true)}
-        expand="full"
-        color="primary"
-        shape="round"
-        strong="true"
       >
         Créer une nouvelle catégorie
       </IonButton>
@@ -85,16 +96,6 @@ function CategoriesComponent({ stateCategory, actionCategory, stateAuth }) {
 
   return (
     <div className="categories container">
-      <IonButton
-        className="ion-margin"
-        type="submit"
-        expand="block"
-        onClick={() => {
-          console.log(stateCategory);
-        }}
-      >
-        Bouton utile
-      </IonButton>
       <div className="headingSection">
         <IonSearchbar
           value={searchText}
@@ -104,7 +105,7 @@ function CategoriesComponent({ stateCategory, actionCategory, stateAuth }) {
         ></IonSearchbar>
       </div>
       {createCategory()}
-      <ion-list>{categoryList()}</ion-list>
+      <ion-list>{categoriesList()}</ion-list>
       <IonAlert
         isOpen={createAlert}
         onDidDismiss={() => setCreateAlert(false)}
@@ -185,7 +186,7 @@ function CategoriesComponent({ stateCategory, actionCategory, stateAuth }) {
 const mapStateToProps = (state) => ({
   state: state,
   stateCategory: state.categoryReducer,
-  stateAuth: state.authReducer.isLoggedIn,
+  stateAuth: state.authReducer,
 });
 
 const mapDispatchToProps = (dispatch) => ({

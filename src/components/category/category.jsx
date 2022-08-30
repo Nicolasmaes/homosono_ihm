@@ -34,16 +34,6 @@ function CategoryComponent({ stateCategory, actionCategory }) {
         <IonHeader>
           <IonToolbar>
             <IonTitle color="primary">Catégorie</IonTitle>
-            <IonButton
-              className="ion-margin"
-              type="submit"
-              expand="block"
-              onClick={() => {
-                console.log(stateCategory);
-              }}
-            >
-              Bouton utile
-            </IonButton>
             <IonButtons slot="start">
               <IonMenuButton menu="main-menu"></IonMenuButton>
             </IonButtons>

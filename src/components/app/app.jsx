@@ -41,6 +41,8 @@ import {
 import Accueil from "../../pages/Accueil/Accueil";
 import Categories from "../../pages/Categories/Categories";
 import Login from "../../pages/Login/Login";
+import MyAccount from "../../pages/MyAccount/MyAccount";
+import Shoppingcart from "../../pages/Shoppingcart/Shoppingcart";
 import Signup from "../../pages/Signup/Signup";
 import Users from "../../pages/Users/Users";
 import Categorie from "../category/category";
@@ -70,13 +72,16 @@ setupIonicReact();
 https://stackoverflow.com/questions/71351489/ionic-react-styles-not-rendering-even-after-importing-the-styles-in-app-js
  */
 
-function AppComponent({ actionRegister, stateAuth, state }) {
+function AppComponent({ state, stateAuth, actionRegister }) {
   useEffect(() => {}, []);
 
   const [present] = useIonToast();
 
   const AdminMenu = () => {
-    if (stateAuth) {
+    if (
+      stateAuth.isLoggedIn &&
+      stateAuth.currentUserLoggedIn.role === "ADMIN"
+    ) {
       return (
         <>
           <IonMenuToggle>
@@ -85,29 +90,30 @@ function AppComponent({ actionRegister, stateAuth, state }) {
               <IonLabel className="ion-margin">Utilisateurs</IonLabel>
             </IonItem>
           </IonMenuToggle>
-          <IonMenuToggle>
-            <IonItem routerLink="/users">
-              <IonIcon icon={personCircle} />
-              <IonLabel className="ion-margin">Mon compte</IonLabel>
-            </IonItem>
-          </IonMenuToggle>
         </>
       );
     }
   };
-  const AdminTab = () => {
-    if (stateAuth) {
+
+  const LoggedInTab = () => {
+    if (stateAuth.isLoggedIn) {
       return (
-        <IonTabButton tab="login" href="/login">
-          <IonIcon icon={cart} />
-          <IonLabel>Panier</IonLabel>
+        <IonTabButton tab="myaccount" href="/myaccount">
+          <IonIcon icon={personCircle} />
+          <IonLabel>Mon compte</IonLabel>
         </IonTabButton>
       );
     }
+    return (
+      <IonTabButton tab="login" href="/login">
+        <IonIcon icon={personCircle} />
+        <IonLabel>Mon compte</IonLabel>
+      </IonTabButton>
+    );
   };
 
   const LogInLogOutButton = () => {
-    if (stateAuth) {
+    if (stateAuth.isLoggedIn) {
       return (
         <IonMenuToggle>
           <IonButton
@@ -206,6 +212,12 @@ function AppComponent({ actionRegister, stateAuth, state }) {
             <Route exact path="/login">
               <Login />
             </Route>
+            <Route exact path="/myaccount">
+              <MyAccount />
+            </Route>
+            <Route exact path="/shoppingcart">
+              <Shoppingcart />
+            </Route>
             <Route exact path="/">
               <Redirect to="/accueil" />
             </Route>
@@ -219,11 +231,11 @@ function AppComponent({ actionRegister, stateAuth, state }) {
               <IonIcon icon={storefront} />
               <IonLabel>Produits</IonLabel>
             </IonTabButton>
-            <IonTabButton tab="login" href="/login">
-              <IonIcon icon={personCircle} />
-              <IonLabel>Mon compte</IonLabel>
+            {LoggedInTab()}
+            <IonTabButton tab="shoppingcart" href="/shoppingcart">
+              <IonIcon icon={cart} />
+              <IonLabel>Panier</IonLabel>
             </IonTabButton>
-            {AdminTab()}
           </IonTabBar>
         </IonTabs>
       </IonReactRouter>
@@ -233,7 +245,7 @@ function AppComponent({ actionRegister, stateAuth, state }) {
 
 const mapStateToProps = (state) => ({
   state: state,
-  stateAuth: state.authReducer.isLoggedIn,
+  stateAuth: state.authReducer,
 });
 
 const mapDispatchToProps = (dispatch) => ({

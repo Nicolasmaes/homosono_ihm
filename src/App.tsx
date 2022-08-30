@@ -1,7 +1,7 @@
 import { setupIonicReact } from "@ionic/react";
 import React from "react";
 
-/*   setupIonicReact est utilisé pour bien raptrier tout le style d'Ionic
+/*   setupIonicReact est utilisé pour bien rapatrier tout le style d'Ionic
 https://stackoverflow.com/questions/71351489/ionic-react-styles-not-rendering-even-after-importing-the-styles-in-app-js
  */
 import AppComponent from "./components/app/app";

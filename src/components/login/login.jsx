@@ -36,10 +36,10 @@ function ConnexionComponent({ actionRegister }) {
 
   const formChecker = (userToLog) => {
     console.log(userToLog);
-    if (userToLog.email === "") {
+    if (userToLog.param === "") {
       presentAlert({
-        header: "E-mail non renseigné",
-        message: "Merci de renseigner votre e-mail.",
+        header: "Identifiant ou e-mail non renseigné",
+        message: "Merci de renseigner le champ.",
         buttons: ["OK"],
       });
     } else if (userToLog.password === "") {
@@ -91,9 +91,8 @@ function ConnexionComponent({ actionRegister }) {
     <>
       <div className="connexion ">
         <IonList className="ion-padding">
-          nicolas.maes1@gmail.com
           <IonItem>
-            <IonLabel position="floating">username</IonLabel>
+            <IonLabel position="floating">Identifiant ou e-mail</IonLabel>
             <IonInput
               value={usernameOrEmailUser}
               clearInput

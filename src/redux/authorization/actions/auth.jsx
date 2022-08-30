@@ -13,6 +13,18 @@ export const setWhoAmIError = (data) => ({
   payload: data,
 });
 
+export const setRefresh = () => ({
+  type: types.SET_REFRESH,
+});
+export const setRefreshSuccess = (data) => ({
+  type: types.SET_REFRESH_SUCCESS,
+  payload: data,
+});
+export const setRefreshError = (data) => ({
+  type: types.SET_REFRESH_ERROR,
+  payload: data,
+});
+
 //=================================================================
 //=========================== MIDDLEWARE ==========================
 //=================================================================
@@ -32,8 +44,6 @@ export const register = (userToAdd, callback) => (dispatch) => {
     });
 };
 export const login = (userToLog, callback) => (dispatch) => {
-  console.log(userToLog);
-
   HomesonoAPI.post("/auth/login", userToLog)
     .then((response) => {
       dispatch({
@@ -60,6 +70,18 @@ export const whoami = () => (dispatch) => {
     })
     .catch((err) => {
       dispatch(setWhoAmIError(err.data));
+    });
+};
+export const refresh = () => (dispatch) => {
+  dispatch(setRefresh());
+  HomesonoAPI.get("/auth/refresh", {
+    headers: { Authorization: `Bearer ${localStorage.getItem("user")}` },
+  })
+    .then((res) => {
+      dispatch(setRefreshSuccess(res.data));
+    })
+    .catch((err) => {
+      dispatch(setRefreshError(err.data));
     });
 };
 

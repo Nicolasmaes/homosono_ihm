@@ -93,9 +93,7 @@ export const getAddCategory = (body) => (dispatch) => {
 
 export const getCategoriesList = () => (dispatch) => {
   dispatch(setCategoriesList());
-  HomesonoAPI.get("/categories", {
-    headers: { Authorization: `Bearer ${localStorage.getItem("user")}` },
-  })
+  HomesonoAPI.get("/categories")
     .then((res) => {
       dispatch(setCategoriesListSuccess(res.data));
     })

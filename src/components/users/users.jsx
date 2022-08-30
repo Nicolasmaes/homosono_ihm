@@ -35,7 +35,6 @@ function UsersComponent({ actionUsers, stateUser }) {
             <IonButton routerLink={`user/${e.id}`} className="fancy-button">
               <IonIcon icon={eye} />
             </IonButton>
-
             <IonButton
               className="fancy-button-reverse"
               onClick={() => {
@@ -68,20 +67,17 @@ function UsersComponent({ actionUsers, stateUser }) {
   return (
     <>
       <div className="users ion-padding">
-        <div className="headingSection">
-          <IonButton
-            onClick={() => setCreateAlert(true)}
-            expand="full"
-            color="secondary"
-            shape="round"
-            strong="true"
-          >
-            Créer un nouvel utilisateur
-          </IonButton>
-        </div>
+        <div className="headingSection"></div>
+        <IonButton
+          className="ion-margin"
+          expand="block"
+          onClick={() => setCreateAlert(true)}
+        >
+          Créer un nouvel utilisateur
+        </IonButton>
         <ion-list-header>
-          <IonLabel color="light">Login</IonLabel>
-          <IonLabel color="light">Mail</IonLabel>
+          <IonLabel color="dark">Login</IonLabel>
+          <IonLabel color="dark">Mail</IonLabel>
         </ion-list-header>
         <ion-list>{usersList()}</ion-list>
         <IonAlert

@@ -50,6 +50,18 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         currentUserLoggedIn: action.payload,
       };
+    case types.SET_REFRESH:
+      return { ...state };
+    case types.SET_REFRESH_SUCCESS:
+      return {
+        ...state,
+        currentUserLoggedIn: action.payload,
+      };
+    case types.SET_REFRESH_ERROR:
+      return {
+        ...state,
+        currentUserLoggedIn: action.payload,
+      };
     default:
       return state;
   }
