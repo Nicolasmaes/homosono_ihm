@@ -8,7 +8,6 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import Categories from "../../components/categories/categories";
-
 import "./Categories.css";
 
 const CategoriesPage: React.FC = () => {

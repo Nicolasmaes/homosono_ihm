@@ -13,18 +13,6 @@ export const setWhoAmIError = (data) => ({
   payload: data,
 });
 
-export const setRefresh = () => ({
-  type: types.SET_REFRESH,
-});
-export const setRefreshSuccess = (data) => ({
-  type: types.SET_REFRESH_SUCCESS,
-  payload: data,
-});
-export const setRefreshError = (data) => ({
-  type: types.SET_REFRESH_ERROR,
-  payload: data,
-});
-
 //=================================================================
 //=========================== MIDDLEWARE ==========================
 //=================================================================
@@ -48,7 +36,7 @@ export const login = (userToLog, callback) => (dispatch) => {
     .then((response) => {
       dispatch({
         type: types.LOGIN_SUCCESS,
-        payload: { user: response },
+        payload: response,
       });
       if (response.data) {
         localStorage.setItem("user", response.data);
@@ -60,28 +48,25 @@ export const login = (userToLog, callback) => (dispatch) => {
     });
 };
 
-export const whoami = () => (dispatch) => {
-  dispatch(setWhoAmI());
+export const whoami = (callback) => (dispatch) => {
   HomesonoAPI.get("/auth/whoami", {
     headers: { Authorization: `Bearer ${localStorage.getItem("user")}` },
   })
-    .then((res) => {
-      dispatch(setWhoAmISuccess(res.data));
+    .then((response) => {
+      dispatch({
+        type: types.SET_WHOAMI_SUCCESS,
+        payload: response,
+      });
+      console.log("dans le then");
+      callback(response);
     })
     .catch((err) => {
-      dispatch(setWhoAmIError(err.data));
-    });
-};
-export const refresh = () => (dispatch) => {
-  dispatch(setRefresh());
-  HomesonoAPI.get("/auth/refresh", {
-    headers: { Authorization: `Bearer ${localStorage.getItem("user")}` },
-  })
-    .then((res) => {
-      dispatch(setRefreshSuccess(res.data));
-    })
-    .catch((err) => {
-      dispatch(setRefreshError(err.data));
+      dispatch({
+        type: types.SET_WHOAMI_ERROR,
+        payload: err,
+      });
+      console.log("dans le catch");
+      callback(err.response);
     });
 };
 

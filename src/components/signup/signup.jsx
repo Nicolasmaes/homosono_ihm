@@ -78,20 +78,7 @@ function InscriptionComponent({ actionRegister }) {
               },
             ],
           });
-        } else if (
-          res.data.message ===
-          "Cet identifiant est déjà utilisé, merci d'en choisir un autre."
-        ) {
-          console.log("NOT OK");
-          presentAlert({
-            header: "Erreur",
-            message: res.data.message,
-            buttons: ["OK"],
-          });
-        } else if (
-          res.data.message ===
-          "Cet e-mail est déjà utilisé, merci d'en renseigner un autre."
-        ) {
+        } else {
           console.log("NOT OK");
           presentAlert({
             header: "Erreur",

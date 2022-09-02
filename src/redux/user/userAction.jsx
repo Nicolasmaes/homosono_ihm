@@ -64,27 +64,35 @@ export const getUsers = () => (dispatch) => {
     });
 };
 
-export const getAddUser = (body) => (dispatch) => {
+export const getAddUser = (body, callback) => (dispatch) => {
   dispatch(setAddUser());
   HomesonoAPI.post("/users", body)
     .then((res) => {
       dispatch(setAddUserSuccess(res.data));
+      console.log("dans le then");
+      callback(res);
     })
     .catch((err) => {
       dispatch(setAddUserError(err.data));
+      console.log("dans le catch");
+      callback(err.response);
     });
 };
 
-export const getUpdateUser = (id, body) => (dispatch) => {
+export const getUpdateUser = (id, body, callback) => (dispatch) => {
   dispatch(setUpdateUser());
   HomesonoAPI.put("/users/" + id, body, {
     headers: { Authorization: `Bearer ${localStorage.getItem("user")}` },
   })
     .then((res) => {
       dispatch(setUpdateUserSuccess(res.data));
+      console.log("dans le then");
+      callback(res);
     })
     .catch((err) => {
       dispatch(setUpdateUserError(err.data));
+      console.log("dans le catch");
+      callback(err.response);
     });
 };
 /* https://stackoverflow.com/questions/40988238/sending-the-bearer-token-with-axios

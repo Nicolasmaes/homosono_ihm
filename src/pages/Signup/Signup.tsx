@@ -10,7 +10,7 @@ import {
 import Signup from "../../components/signup/signup";
 import "./Signup.css";
 
-const SigninPage: React.FC = () => {
+const SignupPage: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
@@ -28,4 +28,4 @@ const SigninPage: React.FC = () => {
   );
 };
 
-export default SigninPage;
+export default SignupPage;

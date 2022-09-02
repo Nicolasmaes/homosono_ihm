@@ -16,11 +16,13 @@ import {
   IonTitle,
   IonToolbar,
   setupIonicReact,
+  useIonAlert,
   useIonToast,
 } from "@ionic/react";
 import { useEffect } from "react";
 import { connect } from "react-redux";
-import { Redirect, Route } from "react-router-dom";
+import { Redirect, Route, useHistory } from "react-router-dom";
+
 import { bindActionCreators } from "redux";
 import * as authAction from "../../redux/authorization/actions/auth";
 
@@ -73,14 +75,16 @@ https://stackoverflow.com/questions/71351489/ionic-react-styles-not-rendering-ev
  */
 
 function AppComponent({ state, stateAuth, actionRegister }) {
-  useEffect(() => {}, []);
-
+  const history = useHistory();
   const [present] = useIonToast();
+  const [presentAlert] = useIonAlert();
+
+  useEffect(() => {}, []);
 
   const AdminMenu = () => {
     if (
       stateAuth.isLoggedIn &&
-      stateAuth.currentUserLoggedIn.role === "ADMIN"
+      stateAuth.currentUserLoggedIn?.role === "ADMIN"
     ) {
       return (
         <>
@@ -231,6 +235,10 @@ function AppComponent({ state, stateAuth, actionRegister }) {
               <IonIcon icon={storefront} />
               <IonLabel>Produits</IonLabel>
             </IonTabButton>
+            <IonTabButton tab="users" href="/users">
+              <IonIcon icon={peopleCircle} />
+              <IonLabel>Users</IonLabel>
+            </IonTabButton>{" "}
             {LoggedInTab()}
             <IonTabButton tab="shoppingcart" href="/shoppingcart">
               <IonIcon icon={cart} />

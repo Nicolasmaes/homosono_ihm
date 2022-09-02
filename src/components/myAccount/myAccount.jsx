@@ -5,19 +5,23 @@ import {
   IonItem,
   IonLabel,
   IonList,
+  useIonAlert,
   useIonToast,
 } from "@ionic/react";
-import { sendSharp } from "ionicons/icons";
+import { close, sendSharp } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import * as authAction from "../../redux/authorization/actions/auth";
 import * as usersAction from "../../redux/user/userAction";
+
 import "./myAccount.scss";
 
 function MyAccountComponent({ stateAuth, actionRegister, actionUsers }) {
+  const history = useHistory();
   const [present] = useIonToast();
-
+  const [presentAlert] = useIonAlert();
   const [updateBox, setUpdateBox] = useState(false);
   const [emailUser, setEmailUser] = useState("");
   const [usernameUser, setUsernameUser] = useState("");
@@ -32,7 +36,18 @@ function MyAccountComponent({ stateAuth, actionRegister, actionUsers }) {
   };
 
   useEffect(() => {
-    actionRegister.whoami();
+    actionRegister.whoami((response) => {
+      console.log(response);
+      if (response.status === 403) {
+        console.log("token expiré");
+        actionRegister.logout();
+        present({
+          message: "Vous êtes déconnecté.",
+          duration: 2000,
+          position: "top",
+        });
+      }
+    });
   }, []);
 
   const updateForm = () => {
@@ -40,25 +55,17 @@ function MyAccountComponent({ stateAuth, actionRegister, actionUsers }) {
       return (
         <>
           <IonList className="ion-padding">
-            <IonButton
-              className="ion-margin"
-              type="submit"
-              expand="block"
-              onClick={() => {
-                setUpdateBox(false);
-              }}
-            >
-              Fermer le formulaire
-            </IonButton>
-            <IonItem>
-              <IonLabel position="floating">E-mail</IonLabel>
-              <IonInput
-                value={emailUser}
-                clearInput
-                placeholder={stateAuth.currentUserLoggedIn.email}
-                onIonChange={(e) => setEmailUser(e.detail.value)}
-              ></IonInput>
-            </IonItem>
+            <div className="test">
+              <IonButton
+                type="submit"
+                slot="icon-only"
+                onClick={() => {
+                  setUpdateBox(false);
+                }}
+              >
+                <IonIcon icon={close} size="large" slot="icon-only" />
+              </IonButton>
+            </div>
             <IonItem>
               <IonLabel position="floating">Identifiant</IonLabel>
               <IonInput
@@ -66,6 +73,16 @@ function MyAccountComponent({ stateAuth, actionRegister, actionUsers }) {
                 clearInput
                 placeholder={stateAuth.currentUserLoggedIn.username}
                 onIonChange={(e) => setUsernameUser(e.detail.value)}
+              ></IonInput>
+            </IonItem>
+            <IonItem>
+              <IonLabel position="floating">E-mail</IonLabel>
+              <IonInput
+                value={emailUser}
+                type="email"
+                clearInput
+                placeholder={stateAuth.currentUserLoggedIn.email}
+                onIonChange={(e) => setEmailUser(e.detail.value)}
               ></IonInput>
             </IonItem>
             <IonItem>
@@ -91,19 +108,35 @@ function MyAccountComponent({ stateAuth, actionRegister, actionUsers }) {
               type="submit"
               expand="block"
               onClick={() => {
-                setUpdateBox(false);
                 console.log(userToUpdate);
                 actionUsers.getUpdateUser(
                   stateAuth.currentUserLoggedIn.id,
-                  userToUpdate
+                  userToUpdate,
+                  (res) => {
+                    console.log(res);
+                    if (res.status === 200) {
+                      console.log("OK");
+                    } else {
+                      console.log("NOT OK");
+                      presentAlert({
+                        header: "Erreur",
+                        message: res.data.message,
+                        buttons: ["OK"],
+                      });
+                    }
+                  }
                 );
                 setUsernameUser("");
                 setEmailUser("");
                 setLastNameUser("");
                 setFirstNameUser("");
+                setUpdateBox(false);
                 setTimeout(() => {
-                  actionRegister.whoami();
-                }, "100");
+                  actionRegister.whoami((response) => {
+                    console.log(response);
+                    console.log("whoami apres mise à jour du user");
+                  });
+                }, "250");
               }}
             >
               <IonIcon icon={sendSharp} />

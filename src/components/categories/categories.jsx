@@ -95,7 +95,7 @@ function CategoriesComponent({ stateCategory, actionCategory, stateAuth }) {
   };
 
   return (
-    <div className="categories container">
+    <div className="categories ion-margin">
       <div className="headingSection">
         <IonSearchbar
           value={searchText}

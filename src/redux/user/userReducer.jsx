@@ -90,9 +90,7 @@ export const userReducer = (state = initialState, action) => {
         isLoadingDeleteUser: false,
         deleteUser: action.payload,
         errorDeleteUser: "",
-        users: state.users.filter(
-          (e) => e.usrIdUsrPK !== action.payload.usrIdUsrPK
-        ),
+        users: state.users.filter((e) => e.id !== action.payload.id),
       };
     case type.SET_DELETE_USER_ERROR:
       return {

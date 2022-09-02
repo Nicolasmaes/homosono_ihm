@@ -1,4 +1,11 @@
-import { IonAlert, IonButton, IonIcon, IonItem, IonLabel } from "@ionic/react";
+import {
+  IonAlert,
+  IonButton,
+  IonIcon,
+  IonItem,
+  IonLabel,
+  useIonAlert,
+} from "@ionic/react";
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -9,6 +16,8 @@ import * as usersAction from "../../redux/user/userAction";
 import "./users.scss";
 
 function UsersComponent({ actionUsers, stateUser }) {
+  const [presentAlert] = useIonAlert();
+
   const [createAlert, setCreateAlert] = useState(false);
   const [updateAlert, setUpdateAlert] = useState(false);
   const [deleteAlert, setDeleteAlert] = useState(false);
@@ -66,7 +75,7 @@ function UsersComponent({ actionUsers, stateUser }) {
 
   return (
     <>
-      <div className="users ion-padding">
+      <div className="users ion-margin">
         <div className="headingSection"></div>
         <IonButton
           className="ion-margin"
@@ -112,7 +121,19 @@ function UsersComponent({ actionUsers, stateUser }) {
               text: "Ajouter",
               handler: (body) => {
                 console.log(body);
-                actionUsers.getAddUser(body);
+                actionUsers.getAddUser(body, (res) => {
+                  console.log(res);
+                  if (res.status === 200) {
+                    console.log("OK");
+                  } else {
+                    console.log("NOT OK");
+                    presentAlert({
+                      header: "Erreur",
+                      message: res.data.message,
+                      buttons: ["OK"],
+                    });
+                  }
+                });
               },
             },
           ]}
@@ -147,7 +168,19 @@ function UsersComponent({ actionUsers, stateUser }) {
               handler: (body) => {
                 console.log(body);
                 console.log(idUser);
-                actionUsers.getUpdateUser(idUser, body);
+                actionUsers.getUpdateUser(idUser, body, (res) => {
+                  console.log(res);
+                  if (res.status === 200) {
+                    console.log("OK");
+                  } else {
+                    console.log("NOT OK");
+                    presentAlert({
+                      header: "Erreur",
+                      message: res.data.message,
+                      buttons: ["OK"],
+                    });
+                  }
+                });
               },
             },
           ]}

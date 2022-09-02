@@ -26,6 +26,7 @@ function ConnexionComponent({ actionRegister }) {
   const [presentAlert] = useIonAlert();
   const [usernameOrEmailUser, setUsernameOrEmaiUser] = useState("");
   const [passwordUser, setPasswordUser] = useState("");
+
   const userToLog = {
     param: usernameOrEmailUser,
     password: passwordUser,
@@ -62,11 +63,13 @@ function ConnexionComponent({ actionRegister }) {
         setUsernameOrEmaiUser("");
         setPasswordUser("");
         history.push("/accueil");
-        actionRegister.whoami();
-        present({
-          message: "Vous êtes connecté",
-          duration: 1000,
-          position: "top",
+        actionRegister.whoami((response) => {
+          console.log(response);
+          present({
+            message: "Vous êtes connecté.",
+            duration: 1000,
+            position: "top",
+          });
         });
       } else if (res.data.message === "Cet utilisateur est inconnu") {
         console.log("NOT OK");
@@ -108,7 +111,7 @@ function ConnexionComponent({ actionRegister }) {
               type="password"
               onIonChange={(e) => setPasswordUser(e.detail.value)}
             ></IonInput>
-          </IonItem>
+          </IonItem>{" "}
           <IonButton
             className="ion-margin"
             type="submit"

@@ -104,7 +104,7 @@ export default App;
 //           <Route exact path="/user/:id">
 //             <User />
 //           </Route>
-//           <Route exact path="/signin">
+//           <Route exact path="/signup">
 //             <Signup />
 //           </Route>
 //           <Route exact path="/login">

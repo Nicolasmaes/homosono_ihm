@@ -6,10 +6,18 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
+  IonButton,
+  IonRefresher,
+  IonRefresherContent,
 } from "@ionic/react";
 import React from "react";
 import MyAccount from "../../components/myAccount/myAccount";
+import * as authAction from "../../redux/authorization/actions/auth";
+import { RefresherEventDetail } from "@ionic/core";
 import "./MyAccount.css";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { Dispatch } from "redux";
 
 const MyAccountPage: React.FC = () => {
   return (
@@ -30,5 +38,19 @@ const MyAccountPage: React.FC = () => {
     </>
   );
 };
+
+const mapStateToProps = (state: any) => ({
+  stateAuth: state.authReducer,
+});
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    actionRegister: bindActionCreators(authAction, dispatch),
+  };
+};
+
+const MyAccountPageFinal = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MyAccountPage);
 
 export default MyAccountPage;
