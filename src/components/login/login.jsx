@@ -64,7 +64,6 @@ function ConnexionComponent({ actionRegister }) {
         setPasswordUser("");
         history.push("/accueil");
         actionRegister.whoami((response) => {
-          console.log(response);
           present({
             message: "Vous êtes connecté.",
             duration: 1000,
@@ -111,7 +110,7 @@ function ConnexionComponent({ actionRegister }) {
               type="password"
               onIonChange={(e) => setPasswordUser(e.detail.value)}
             ></IonInput>
-          </IonItem>{" "}
+          </IonItem>
           <IonButton
             className="ion-margin"
             type="submit"

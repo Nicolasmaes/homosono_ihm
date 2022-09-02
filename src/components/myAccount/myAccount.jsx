@@ -27,12 +27,14 @@ function MyAccountComponent({ stateAuth, actionRegister, actionUsers }) {
   const [usernameUser, setUsernameUser] = useState("");
   const [lastNameUser, setLastNameUser] = useState("");
   const [firstNameUser, setFirstNameUser] = useState("");
+  const [pictureUser, setPictureUser] = useState("");
 
   const userToUpdate = {
     email: emailUser,
     username: usernameUser,
     lastName: lastNameUser,
     firstName: firstNameUser,
+    profile_picture: pictureUser,
   };
 
   useEffect(() => {
@@ -86,7 +88,7 @@ function MyAccountComponent({ stateAuth, actionRegister, actionUsers }) {
               ></IonInput>
             </IonItem>
             <IonItem>
-              <IonLabel position="floating">Last Name</IonLabel>
+              <IonLabel position="floating">Nom de famille</IonLabel>
               <IonInput
                 value={lastNameUser}
                 clearInput
@@ -95,7 +97,7 @@ function MyAccountComponent({ stateAuth, actionRegister, actionUsers }) {
               ></IonInput>
             </IonItem>
             <IonItem>
-              <IonLabel position="floating">First Name</IonLabel>
+              <IonLabel position="floating">Prénom</IonLabel>
               <IonInput
                 value={firstNameUser}
                 clearInput
@@ -103,6 +105,14 @@ function MyAccountComponent({ stateAuth, actionRegister, actionUsers }) {
                 onIonChange={(e) => setFirstNameUser(e.detail.value)}
               ></IonInput>
             </IonItem>
+            <IonItem>
+              <IonLabel position="stacked">Photo de profil</IonLabel>
+              <IonInput
+                type="file"
+                onIonChange={(e) => setPictureUser(e.detail.value)}
+              ></IonInput>
+            </IonItem>
+
             <IonButton
               className="ion-margin"
               type="submit"
@@ -134,7 +144,7 @@ function MyAccountComponent({ stateAuth, actionRegister, actionUsers }) {
                 setTimeout(() => {
                   actionRegister.whoami((response) => {
                     console.log(response);
-                    console.log("whoami apres mise à jour du user");
+                    console.log("whoami() apres mise à jour du user");
                   });
                 }, "250");
               }}

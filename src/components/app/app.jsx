@@ -238,7 +238,7 @@ function AppComponent({ state, stateAuth, actionRegister }) {
             <IonTabButton tab="users" href="/users">
               <IonIcon icon={peopleCircle} />
               <IonLabel>Users</IonLabel>
-            </IonTabButton>{" "}
+            </IonTabButton>
             {LoggedInTab()}
             <IonTabButton tab="shoppingcart" href="/shoppingcart">
               <IonIcon icon={cart} />

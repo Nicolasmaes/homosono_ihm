@@ -1,11 +1,19 @@
 import {
   IonAlert,
   IonButton,
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardSubtitle,
+  IonCardTitle,
   IonIcon,
   IonItem,
+  IonList,
   IonSearchbar,
 } from "@ionic/react";
-import { create, eye, trash } from "ionicons/icons";
+
+import { create, trash } from "ionicons/icons";
+
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -65,16 +73,29 @@ function CategoriesComponent({ stateCategory, actionCategory, stateAuth }) {
 
     return chooseValue().map((e) => {
       return (
-        <div className="singleCat">
-          <IonItem>
-            <ion-label>{e.catNameCat}</ion-label>
-            <IonButton
-              className="fancy-button"
-              routerLink={`categorie/${e.catIdCatPK}`}
-            >
-              <IonIcon icon={eye} />
-            </IonButton>
-            {AdminButton(e)}
+        <div>
+          <IonItem key={e}>
+            <IonCard className="singleCat center">
+              {/* <div className="center">
+                  <IonImg src={image.src} className="imageReduce" />
+                </div> */}
+              <IonCardHeader>
+                <IonCardTitle>{e.catNameCat}</IonCardTitle>
+                <IonCardSubtitle>subtitle</IonCardSubtitle>
+              </IonCardHeader>
+              <IonCardContent>
+                IonCardContent
+                <IonItem>
+                  <IonButton
+                    fill="outline"
+                    routerLink={`categorie/${e.catIdCatPK}`}
+                  >
+                    voir
+                  </IonButton>
+                  {AdminButton(e)}
+                </IonItem>
+              </IonCardContent>
+            </IonCard>
           </IonItem>
         </div>
       );
@@ -105,7 +126,8 @@ function CategoriesComponent({ stateCategory, actionCategory, stateAuth }) {
         ></IonSearchbar>
       </div>
       {createCategory()}
-      <ion-list>{categoriesList()}</ion-list>
+      <IonList>{categoriesList()}</IonList>
+
       <IonAlert
         isOpen={createAlert}
         onDidDismiss={() => setCreateAlert(false)}

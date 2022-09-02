@@ -1,4 +1,4 @@
-import { IonButton, useIonAlert, useIonToast } from "@ionic/react";
+import { IonButton, useIonToast } from "@ionic/react";
 import { useEffect } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -9,7 +9,6 @@ import "./accueil.scss";
 
 function AccueilComponent({ actionRegister, stateAuth }) {
   const history = useHistory();
-  const [presentAlert] = useIonAlert();
   const [present] = useIonToast();
 
   useEffect(() => {
