@@ -36,6 +36,17 @@ export const setCategoriesListError = (data) => ({
   type: types.SET_CATEGORIES_LIST_ERROR,
   payload: data,
 });
+export const setCategorieById = () => ({
+  type: types.SET_CATEGORIE_BY_ID,
+});
+export const setCategorieByIdtSuccess = (data) => ({
+  type: types.SET_CATEGORIE_BY_ID_SUCCESS,
+  payload: data,
+});
+export const setCategorieByIdError = (data) => ({
+  type: types.SET_CATEGORIE_BY_ID_ERROR,
+  payload: data,
+});
 
 export const setUpdateCategory = () => ({
   type: types.SET_UPDATE_CATEGORY,
@@ -61,9 +72,43 @@ export const setDeleteCategoryError = (data) => ({
   payload: data,
 });
 
+export const setUploadCategoryPicture = () => ({
+  type: types.SET_UPLOAD_CATEGORY_PICTURE,
+});
+export const setUploadCategoryPictureSuccess = (data, id) => ({
+  type: types.SET_UPLOAD_CATEGORY_PICTURE_SUCCESS,
+  payload: { data, id },
+});
+export const setUploadCategoryPictureError = (data) => ({
+  type: types.SET_UPLOAD_CATEGORY_PICTURE_ERROR,
+  payload: data,
+});
+
 //=================================================================
 //=========================== MIDDLEWARE ==========================
 //=================================================================
+
+export const getCategoriesList = () => (dispatch) => {
+  dispatch(setCategoriesList());
+  HomesonoAPI.get("/categories")
+    .then((res) => {
+      dispatch(setCategoriesListSuccess(res.data));
+    })
+    .catch((err) => {
+      dispatch(setCategoriesListError(err.data));
+    });
+};
+
+export const getCategorieById = (id) => (dispatch) => {
+  dispatch(setCategoriesList());
+  HomesonoAPI.get("/categories/" + id)
+    .then((res) => {
+      dispatch(setCategorySuccess(res.data));
+    })
+    .catch((err) => {
+      dispatch(setCategoryError(err.data));
+    });
+};
 
 export const getAddCategory = (body) => (dispatch) => {
   dispatch(setAddCategory());
@@ -75,30 +120,6 @@ export const getAddCategory = (body) => (dispatch) => {
     })
     .catch((err) => {
       dispatch(setAddCategoryError(err.data));
-    });
-};
-
-// export const getCategoryById = (id) => (dispatch) => {
-//   dispatch(setCategory());
-//   HomesonoAPI.get("/categories/" + id, {
-//     headers: { Authorization: `Bearer ${localStorage.getItem("user")}` },
-//   })
-//     .then((res) => {
-//       dispatch(setCategorySuccess(res.data));
-//     })
-//     .catch((err) => {
-//       dispatch(setCategoryError(err.data));
-//     });
-// };
-
-export const getCategoriesList = () => (dispatch) => {
-  dispatch(setCategoriesList());
-  HomesonoAPI.get("/categories")
-    .then((res) => {
-      dispatch(setCategoriesListSuccess(res.data));
-    })
-    .catch((err) => {
-      dispatch(setCategoriesListError(err.data));
     });
 };
 
@@ -125,5 +146,25 @@ export const getDeleteCategory = (id) => (dispatch) => {
     })
     .catch((err) => {
       dispatch(setDeleteCategoryError(err.data));
+    });
+};
+
+export const getUploadCategoryPicture = (file, id, callback) => (dispatch) => {
+  let formData = new FormData();
+  formData.append("file", file);
+
+  dispatch(setUploadCategoryPicture());
+  HomesonoAPI.post("/upload/" + id, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  })
+    .then((res) => {
+      dispatch(setUploadCategoryPictureSuccess(res.data, id));
+      callback(res);
+    })
+    .catch((err) => {
+      dispatch(setUploadCategoryPictureError(`${err.response.status}`));
+      callback(err.response);
     });
 };

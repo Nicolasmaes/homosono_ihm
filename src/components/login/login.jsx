@@ -126,7 +126,7 @@ function ConnexionComponent({ actionRegister }) {
           <IonGrid>
             <IonRow>
               <IonCol>
-                <div class="ion-text-center">
+                <div className="ion-text-center">
                   <p>Vous n'avez pas encore de compte ?</p>
                   <IonRouterLink routerLink="/signup">
                     Inscrivez-vous ici

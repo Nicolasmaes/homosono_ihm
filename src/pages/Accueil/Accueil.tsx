@@ -1,4 +1,4 @@
-import { RefresherEventDetail } from "@ionic/core";
+import React from "react";
 import {
   IonButtons,
   IonContent,
@@ -7,9 +7,7 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
-} from /*   useIonAlert,
- */ "@ionic/react";
-
+} from "@ionic/react";
 import Accueil from "../../components/accueil/accueil";
 import "./Accueil.css";
 
@@ -24,7 +22,6 @@ const AccueilPage: React.FC = () => {
           </IonButtons>
         </IonToolbar>
       </IonHeader>
-
       <IonContent fullscreen className="ion-padding">
         <Accueil />
       </IonContent>

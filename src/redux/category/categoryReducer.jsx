@@ -75,6 +75,23 @@ export const categoryReducer = (state = initialState, action) => {
         errorCategorieList: action.payload,
       };
 
+    case type.SET_CATEGORIE_BY_ID:
+      return { ...state, isLoadingCategorieList: true };
+    case type.SET_CATEGORIE_BY_ID_SUCCESS:
+      return {
+        ...state,
+        isLoadingCategorie: false,
+        categorie: action.payload,
+        errorCategorie: "",
+      };
+    case type.SET_CATEGORIE_BY_ID_ERROR:
+      return {
+        ...state,
+        isLoadingCategorie: false,
+        categorieList: [],
+        errorCategorie: action.payload,
+      };
+
     case type.SET_UPDATE_CATEGORY:
       return { ...state, isLoadingUpdateCategorie: true };
     case type.SET_UPDATE_CATEGORY_SUCCESS:
@@ -114,6 +131,30 @@ export const categoryReducer = (state = initialState, action) => {
         deleteCategorie: [],
         errorDeleteCategorie: action.payload,
       };
+
+    case type.SET_UPLOAD_CATEGORY_PICTURE:
+      return { ...state, isLoadingUploadCategoryPicture: true };
+    case type.SET_UPLOAD_CATEGORY_PICTURE_SUCCESS:
+      console.log(action.payload);
+      return {
+        ...state,
+        isLoadingUploadCategoryPicture: false,
+        errorUploadCategoryPicture: "",
+        categorieList: state.categorieList.map((categorie) =>
+          action.payload.id === categorie.catIdCatPK
+            ? { ...categorie, fileDB: action.payload.data }
+            : categorie
+        ),
+        categorie: action.payload.data,
+      };
+    case type.SET_UPLOAD_CATEGORY_PICTURE_ERROR:
+      return {
+        ...state,
+        isLoadingUploadCategoryPicture: false,
+        uploadCategoryPicture: [],
+        errorUploadCategoryPicture: action.payload,
+      };
+
     default:
       return state;
   }

@@ -23,20 +23,21 @@ export const register = (userToAdd, callback) => (dispatch) => {
       dispatch({
         type: types.REGISTER_SUCCESS,
       });
-      console.log("dans le then");
+      console.log("then");
       callback(response);
     })
     .catch((err) => {
-      console.log("dans le catch");
+      console.log("catch");
       callback(err.response);
     });
 };
+
 export const login = (userToLog, callback) => (dispatch) => {
   HomesonoAPI.post("/auth/login", userToLog)
     .then((response) => {
       dispatch({
         type: types.LOGIN_SUCCESS,
-        payload: response,
+        payload: response.data,
       });
       if (response.data) {
         localStorage.setItem("user", response.data);
@@ -55,17 +56,17 @@ export const whoami = (callback) => (dispatch) => {
     .then((response) => {
       dispatch({
         type: types.SET_WHOAMI_SUCCESS,
-        payload: response,
+        payload: response.data,
       });
-      console.log("dans le then");
+      console.log("then");
       callback(response);
     })
     .catch((err) => {
       dispatch({
         type: types.SET_WHOAMI_ERROR,
-        payload: err,
+        payload: err.response.status,
       });
-      console.log("dans le catch");
+      console.log("catch");
       callback(err.response);
     });
 };

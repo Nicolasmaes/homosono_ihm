@@ -9,6 +9,7 @@ import {
 } from "@ionic/react";
 import Categories from "../../components/categories/categories";
 import "./Categories.css";
+import React, { useRef } from "react";
 
 const CategoriesPage: React.FC = () => {
   return (

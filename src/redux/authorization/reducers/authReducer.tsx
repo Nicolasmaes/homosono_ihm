@@ -41,7 +41,7 @@ export const authReducer = (state = initialState, action: any) => {
     case types.SET_WHOAMI_SUCCESS:
       return {
         ...state,
-        currentUserLoggedIn: action.payload.data,
+        currentUserLoggedIn: action.payload,
       };
     case types.SET_WHOAMI_ERROR:
       return {

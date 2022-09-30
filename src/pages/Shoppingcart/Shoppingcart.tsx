@@ -9,6 +9,7 @@ import {
 } from "@ionic/react";
 import React from "react";
 import Shoppingcart from "../../components/shoppingCart/shoppingCart";
+
 import "./Shoppingcart.css";
 
 const ShoppingcartPage: React.FC = () => {

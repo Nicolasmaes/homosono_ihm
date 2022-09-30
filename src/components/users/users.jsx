@@ -36,7 +36,7 @@ function UsersComponent({ actionUsers, stateUser }) {
   const usersList = () => {
     return chooseValue().map((e) => {
       return (
-        <div className="singleCat">
+        <div className="singleCat" key={e.id}>
           <IonItem>
             <IonLabel>{e.email}</IonLabel>
             <IonLabel>{e.username}</IonLabel>

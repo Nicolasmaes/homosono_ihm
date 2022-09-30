@@ -138,7 +138,7 @@ function InscriptionComponent({ actionRegister }) {
           <IonGrid>
             <IonRow>
               <IonCol>
-                <div class="ion-text-center">
+                <div className="ion-text-center">
                   <p>Vous avez déjà un compte ?</p>
                   <IonRouterLink routerLink="/login">
                     Connectez-vous ici

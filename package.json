@@ -23,6 +23,8 @@
     "@typescript-eslint/parser": "^5.28.0",
     "eslint": "^8.17.0",
     "ionicons": "^5.4.0",
+    "jwt-decode": "^3.1.2",
+    "moment": "^2.29.4",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-input-emoji": "^4.1.0",
