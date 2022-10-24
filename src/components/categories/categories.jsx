@@ -7,22 +7,22 @@ import {
   IonCardSubtitle,
   IonCardTitle,
   IonIcon,
+  IonImg,
+  IonInput,
   IonItem,
+  IonLabel,
   IonList,
   IonSearchbar,
-  useIonToast,
-  IonInput,
-  IonLabel,
   useIonAlert,
-  IonImg,
+  useIonToast,
 } from "@ionic/react";
-import { create, trash, close, sendSharp } from "ionicons/icons";
+import { close, create, sendSharp, trash } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { bindActionCreators } from "redux";
-import * as categoryAction from "../../redux/category/categoryAction";
 import * as authAction from "../../redux/authorization/actions/auth";
+import * as categoryAction from "../../redux/category/categoryAction";
 
 import "./categories.scss";
 
@@ -44,17 +44,6 @@ function CategoriesComponent({
   const [selectedFile, setSelectedFile] = useState(undefined);
 
   useEffect(() => {
-    // actionRegister.whoami((response) => {
-    //   if (response.status === 403) {
-    //     console.log("token expiré");
-    //     actionRegister.logout();
-    //     present({
-    //       message: "Vous êtes déconnecté.",
-    //       duration: 2000,
-    //       position: "top",
-    //     });
-    //   }
-    // });
     actionCategory.getCategoriesList();
   }, []);
 
@@ -172,10 +161,6 @@ function CategoriesComponent({
               onClick={() => {
                 actionCategory.getUpdateCategory(idCategory, nameCategory);
                 if (selectedFile !== undefined) {
-                  console.log(selectedFile);
-                  console.log(selectedFile.type);
-                  console.log(selectedFile.type !== "image/png");
-                  console.log(selectedFile.type !== "image/jpeg");
                   if (
                     selectedFile.type !== "image/png" &&
                     selectedFile.type !== "image/jpeg"

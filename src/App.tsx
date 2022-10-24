@@ -1,4 +1,5 @@
 import { setupIonicReact } from "@ionic/react";
+
 import React from "react";
 
 /*   setupIonicReact est utilisé pour bien rapatrier tout le style d'Ionic

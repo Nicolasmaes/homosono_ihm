@@ -19,9 +19,9 @@ import {
   useIonAlert,
   useIonToast,
 } from "@ionic/react";
-import { useEffect } from "react";
+
 import { connect } from "react-redux";
-import { Redirect, Route, useHistory, Link } from "react-router-dom";
+import { Redirect, Route, useHistory } from "react-router-dom";
 
 import { bindActionCreators } from "redux";
 import * as authAction from "../../redux/authorization/actions/auth";
@@ -78,8 +78,6 @@ function AppComponent({ state, stateAuth, actionRegister }) {
   const history = useHistory();
   const [present] = useIonToast();
   const [presentAlert] = useIonAlert();
-
-  useEffect(() => {}, []);
 
   const AdminMenu = () => {
     if (

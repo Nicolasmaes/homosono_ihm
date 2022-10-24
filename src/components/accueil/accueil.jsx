@@ -1,21 +1,16 @@
 import {
   IonButton,
+  useIonAlert,
   useIonToast,
   useIonViewDidEnter,
-  useIonViewDidLeave,
-  useIonViewWillEnter,
   useIonViewWillLeave,
-  useIonAlert,
 } from "@ionic/react";
-import { useEffect } from "react";
-import React, { useState } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
-
-import { bindActionCreators } from "redux";
-import * as authAction from "../../redux/authorization/actions/auth";
 import jwt_decode from "jwt-decode";
 import Moment from "moment";
+import { bindActionCreators } from "redux";
+import * as authAction from "../../redux/authorization/actions/auth";
 
 import "./accueil.scss";
 
@@ -24,7 +19,7 @@ function AccueilComponent({ actionRegister, stateAuth }) {
   const [present] = useIonToast();
   const [presentAlert] = useIonAlert();
 
-  var intervalId = null;
+  const intervalId = null;
 
   useIonViewDidEnter(() => {
     console.log("useIonic view Did Enter event");
@@ -59,28 +54,27 @@ function AccueilComponent({ actionRegister, stateAuth }) {
   });
 
   const decode = () => {
-    var decoded = jwt_decode(localStorage.getItem("user"));
-    // console.log(decoded.exp);
+    const decoded = jwt_decode(localStorage.getItem("user"));
+    console.log(decoded);
 
-    const formatDate = Moment().format("D/MM/YYYY HH:mm:ss");
-    // console.log(formatDate + " (date et heure a l'instant T)");
-    console.log(Moment.unix(decoded.exp).toISOString() + " (ISO du token)");
-
-    const expirationDuToken = Moment.unix(decoded.exp).format(
-      "D/MM/YYYY HH:mm:ss"
+    console.log(
+      Moment.unix(decoded.exp).toISOString() + " (format ISO du token)"
     );
-    // console.log(expirationDuToken + " (date et heure d'expiration du token)");
 
     const date = new Date();
-    console.log(date.toISOString() + " (ISO actuel)");
+    console.log(date.toISOString() + " (format ISO de la date actuel)");
 
     // Comparison between the current date & time and the time when the token expires
-    // 3. Greater than check toISOString()
+    // https://programmingwithswift.com/how-to-compare-dates-with-typescript/
+    // Greater than check toISOString()
+
     if (Moment.unix(decoded.exp).toISOString() > date.toISOString()) {
-      console.log("token greater than current date: toISOString(), connecté");
+      console.log(
+        "la date du token est posterieure a la date actuelle :  connecte"
+      );
     } else {
       console.log(
-        "token is not greater than current date: toISOString(), déconnecté"
+        "la date du token est anterieure a la date actuelle :  deconnecte"
       );
       actionRegister.logout();
       presentAlert({

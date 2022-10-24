@@ -1,17 +1,17 @@
 import * as type from "./categoryType";
 
 const initialState = {
-  addCategorie: [],
-  errorAddCategorie: "",
-  isLoadingAddCategorie: false,
+  categorieList: [],
+  errorCategorieList: "",
+  isLoadingCategorieList: false,
 
   categorie: [],
   errorCategorie: "",
   isLoadingCategorie: false,
 
-  categorieList: [],
-  errorCategorieList: "",
-  isLoadingCategorieList: false,
+  addCategorie: [],
+  errorAddCategorie: "",
+  isLoadingAddCategorie: false,
 
   updateCategorie: [],
   errorUpdateCategorie: "",
@@ -20,25 +20,29 @@ const initialState = {
   deleteCategorie: [],
   errorDeleteCategorie: "",
   isLoadingDeleteCategorie: false,
+
+  uploadCategoryPicture: [],
+  errorUploadCategoryPicture: "",
+  isLoadingUploadCategoryPicture: false,
 };
 
 export const categoryReducer = (state = initialState, action) => {
   switch (action.type) {
-    case type.SET_ADD_CATEGORY:
-      return { ...state, isLoadingAddCategorie: true };
-    case type.SET_ADD_CATEGORY_SUCCESS:
+    case type.SET_CATEGORIES_LIST:
+      return { ...state, isLoadingCategorieList: true };
+    case type.SET_CATEGORIES_LIST_SUCCESS:
       return {
         ...state,
-        isLoadingAddCategorie: false,
-        categorieList: [...state.categorieList, action.payload],
-        errorAddCategorie: "",
+        isLoadingCategorieList: false,
+        categorieList: action.payload,
+        errorCategorieList: "",
       };
-    case type.SET_ADD_CATEGORY_ERROR:
+    case type.SET_CATEGORIES_LIST_ERROR:
       return {
         ...state,
-        isLoadingAddCategorie: false,
-        addCategorie: [],
-        errorAddCategorie: action.payload,
+        isLoadingCategorieList: false,
+        categorieList: [],
+        errorCategorieList: action.payload,
       };
 
     case type.SET_CATEGORY:
@@ -58,38 +62,21 @@ export const categoryReducer = (state = initialState, action) => {
         errorCategorie: action.payload,
       };
 
-    case type.SET_CATEGORIES_LIST:
-      return { ...state, isLoadingCategorieList: true };
-    case type.SET_CATEGORIES_LIST_SUCCESS:
+    case type.SET_ADD_CATEGORY:
+      return { ...state, isLoadingAddCategorie: true };
+    case type.SET_ADD_CATEGORY_SUCCESS:
       return {
         ...state,
-        isLoadingCategorieList: false,
-        categorieList: action.payload,
-        errorCategorieList: "",
+        isLoadingAddCategorie: false,
+        categorieList: [...state.categorieList, action.payload],
+        errorAddCategorie: "",
       };
-    case type.SET_CATEGORIES_LIST_ERROR:
+    case type.SET_ADD_CATEGORY_ERROR:
       return {
         ...state,
-        isLoadingCategorieList: false,
-        categorieList: [],
-        errorCategorieList: action.payload,
-      };
-
-    case type.SET_CATEGORIE_BY_ID:
-      return { ...state, isLoadingCategorieList: true };
-    case type.SET_CATEGORIE_BY_ID_SUCCESS:
-      return {
-        ...state,
-        isLoadingCategorie: false,
-        categorie: action.payload,
-        errorCategorie: "",
-      };
-    case type.SET_CATEGORIE_BY_ID_ERROR:
-      return {
-        ...state,
-        isLoadingCategorie: false,
-        categorieList: [],
-        errorCategorie: action.payload,
+        isLoadingAddCategorie: false,
+        addCategorie: [],
+        errorAddCategorie: action.payload,
       };
 
     case type.SET_UPDATE_CATEGORY:
@@ -102,6 +89,7 @@ export const categoryReducer = (state = initialState, action) => {
             ? { ...categorie, catNameCat: action.payload.catNameCat }
             : categorie
         ),
+        errorUpdateCategorie: "",
       };
     case type.SET_UPDATE_CATEGORY_ERROR:
       return {
@@ -161,7 +149,3 @@ export const categoryReducer = (state = initialState, action) => {
 };
 
 export default categoryReducer;
-
-export const getCatById = (state, id) => {
-  return state.categorieList.find((el) => el.catIdCatPK === id);
-};

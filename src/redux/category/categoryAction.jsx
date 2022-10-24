@@ -1,15 +1,15 @@
 import { HomesonoAPI } from "../../util/WsCaller";
 import * as types from "./categoryType";
 
-export const setAddCategory = () => ({
-  type: types.SET_ADD_CATEGORY,
+export const setCategoriesList = () => ({
+  type: types.SET_CATEGORIES_LIST,
 });
-export const setAddCategorySuccess = (data) => ({
-  type: types.SET_ADD_CATEGORY_SUCCESS,
+export const setCategoriesListSuccess = (data) => ({
+  type: types.SET_CATEGORIES_LIST_SUCCESS,
   payload: data,
 });
-export const setAddCategoryError = (data) => ({
-  type: types.SET_ADD_CATEGORY_ERROR,
+export const setCategoriesListError = (data) => ({
+  type: types.SET_CATEGORIES_LIST_ERROR,
   payload: data,
 });
 
@@ -25,26 +25,15 @@ export const setCategoryError = (data) => ({
   payload: data,
 });
 
-export const setCategoriesList = () => ({
-  type: types.SET_CATEGORIES_LIST,
+export const setAddCategory = () => ({
+  type: types.SET_ADD_CATEGORY,
 });
-export const setCategoriesListSuccess = (data) => ({
-  type: types.SET_CATEGORIES_LIST_SUCCESS,
+export const setAddCategorySuccess = (data) => ({
+  type: types.SET_ADD_CATEGORY_SUCCESS,
   payload: data,
 });
-export const setCategoriesListError = (data) => ({
-  type: types.SET_CATEGORIES_LIST_ERROR,
-  payload: data,
-});
-export const setCategorieById = () => ({
-  type: types.SET_CATEGORIE_BY_ID,
-});
-export const setCategorieByIdtSuccess = (data) => ({
-  type: types.SET_CATEGORIE_BY_ID_SUCCESS,
-  payload: data,
-});
-export const setCategorieByIdError = (data) => ({
-  type: types.SET_CATEGORIE_BY_ID_ERROR,
+export const setAddCategoryError = (data) => ({
+  type: types.SET_ADD_CATEGORY_ERROR,
   payload: data,
 });
 
