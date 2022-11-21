@@ -155,103 +155,101 @@ function AppComponent({ state, stateAuth, actionRegister }) {
   };
 
   return (
-    <IonApp>
-      <IonReactRouter>
-        <IonMenu menuId="main-menu" contentId="main">
-          <IonHeader>
+    <IonReactRouter>
+      <IonMenu menuId="main-menu" contentId="main">
+        <IonHeader>
+          <IonMenuToggle>
+            <IonToolbar>
+              <IonTitle>Menu</IonTitle>
+              <IonIcon
+                icon={close}
+                size="large"
+                slot="end"
+                className="ion-margin"
+                color="primary"
+              />
+            </IonToolbar>
+          </IonMenuToggle>
+        </IonHeader>
+        <IonContent>
+          <IonList>
             <IonMenuToggle>
-              <IonToolbar>
-                <IonTitle>Menu</IonTitle>
-                <IonIcon
-                  icon={close}
-                  size="large"
-                  slot="end"
-                  className="ion-margin"
-                  color="primary"
-                />
-              </IonToolbar>
+              <IonItem routerLink="/accueil">
+                <IonIcon icon={home} />
+                <IonLabel className="ion-margin">Accueil</IonLabel>
+              </IonItem>
             </IonMenuToggle>
-          </IonHeader>
-          <IonContent>
-            <IonList>
-              <IonMenuToggle>
-                <IonItem routerLink="/accueil">
-                  <IonIcon icon={home} />
-                  <IonLabel className="ion-margin">Accueil</IonLabel>
-                </IonItem>
-              </IonMenuToggle>
-              <IonMenuToggle>
-                <IonItem routerLink="/categories">
-                  <IonIcon icon={storefront} />
-                  <IonLabel className="ion-margin">Produits</IonLabel>
-                </IonItem>
-              </IonMenuToggle>
-              <IonMenuToggle>
-                <IonItem routerLink="/shoppingcart">
-                  <IonIcon icon={cart} />
-                  <IonLabel className="ion-margin">Panier</IonLabel>
-                </IonItem>
-              </IonMenuToggle>
-              {AdminMenu()}
-              {LogInLogOutButton()}
-            </IonList>
-          </IonContent>
-        </IonMenu>
-        <IonTabs>
-          <IonRouterOutlet id="main">
-            <Route exact path="/accueil">
-              <Accueil />
-            </Route>
-            <Route exact path="/categories">
-              <Categories />
-            </Route>
-            <Route exact path="/categorie/:id">
-              <Categorie />
-            </Route>
-            <Route path="/users">
-              <Users />
-            </Route>
-            <Route exact path="/user/:id">
-              <User />
-            </Route>
-            <Route exact path="/signup">
-              <Signup />
-            </Route>
-            <Route exact path="/login">
-              <Login />
-            </Route>
-            <Route exact path="/myaccount">
-              <MyAccount />
-            </Route>
-            <Route exact path="/shoppingcart">
-              <Shoppingcart />
-            </Route>
-            <Route exact path="/">
-              <Redirect to="/accueil" />
-            </Route>
-          </IonRouterOutlet>
-          <IonTabBar slot="bottom">
-            <IonTabButton tab="accueil" href="/accueil">
-              <IonIcon icon={home} />
-              <IonLabel>Accueil</IonLabel>
-            </IonTabButton>
-            <IonTabButton tab="Categories" href="/categories">
-              <IonIcon icon={storefront} />
-              <IonLabel>Produits</IonLabel>
-            </IonTabButton>
-            <IonTabButton tab="users" href="/users">
-              <IonIcon icon={peopleCircle} />
-              <IonLabel>Users</IonLabel>
-            </IonTabButton>
-            {LoggedInTab()}
-            <IonTabButton tab="shoppingcart" href="/shoppingcart">
-              <IonIcon icon={cart} />
-              <IonLabel>Panier</IonLabel>
-            </IonTabButton>
-          </IonTabBar>
-        </IonTabs>
-      </IonReactRouter>
-    </IonApp>
+            <IonMenuToggle>
+              <IonItem routerLink="/categories">
+                <IonIcon icon={storefront} />
+                <IonLabel className="ion-margin">Produits</IonLabel>
+              </IonItem>
+            </IonMenuToggle>
+            <IonMenuToggle>
+              <IonItem routerLink="/shoppingcart">
+                <IonIcon icon={cart} />
+                <IonLabel className="ion-margin">Panier</IonLabel>
+              </IonItem>
+            </IonMenuToggle>
+            {AdminMenu()}
+            {LogInLogOutButton()}
+          </IonList>
+        </IonContent>
+      </IonMenu>
+      <IonTabs>
+        <IonRouterOutlet id="main">
+          <Route exact path="/accueil">
+            <Accueil />
+          </Route>
+          <Route exact path="/categories">
+            <Categories />
+          </Route>
+          <Route exact path="/categorie/:id">
+            <Categorie />
+          </Route>
+          <Route path="/users">
+            <Users />
+          </Route>
+          <Route exact path="/user/:id">
+            <User />
+          </Route>
+          <Route exact path="/signup">
+            <Signup />
+          </Route>
+          <Route exact path="/login">
+            <Login />
+          </Route>
+          <Route exact path="/myaccount">
+            <MyAccount />
+          </Route>
+          <Route exact path="/shoppingcart">
+            <Shoppingcart />
+          </Route>
+          <Route exact path="/">
+            <Redirect to="/accueil" />
+          </Route>
+        </IonRouterOutlet>
+        <IonTabBar slot="bottom">
+          <IonTabButton tab="accueil" href="/accueil">
+            <IonIcon icon={home} />
+            <IonLabel>Accueil</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="Categories" href="/categories">
+            <IonIcon icon={storefront} />
+            <IonLabel>Produits</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="users" href="/users">
+            <IonIcon icon={peopleCircle} />
+            <IonLabel>Users</IonLabel>
+          </IonTabButton>
+          {LoggedInTab()}
+          <IonTabButton tab="shoppingcart" href="/shoppingcart">
+            <IonIcon icon={cart} />
+            <IonLabel>Panier</IonLabel>
+          </IonTabButton>
+        </IonTabBar>
+      </IonTabs>
+    </IonReactRouter>
   );
 }
 

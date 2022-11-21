@@ -14,6 +14,10 @@ import * as authAction from "../../redux/authorization/actions/auth";
 
 import "./accueil.scss";
 
+export function sum(a, b) {
+  return a + b;
+}
+
 function AccueilComponent({ actionRegister, stateAuth }) {
   const history = useHistory();
   const [present] = useIonToast();
@@ -146,6 +150,7 @@ function AccueilComponent({ actionRegister, stateAuth }) {
       <h1>Bienvenue sur HomeSono</h1>
       <h2>Phrase d'accroche</h2>
       {conditionalLinks()}
+      {sum(40, 101)}
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { setupIonicReact } from "@ionic/react";
+import { IonApp, setupIonicReact } from "@ionic/react";
 
 import React from "react";
 
@@ -25,14 +25,18 @@ import "@ionic/react/css/text-transformation.css";
 
 /* Theme variables */
 import "./theme/variables.css";
+import { Provider } from "react-redux";
+import store from "./reduxStore";
 
 setupIonicReact();
 /*   setupIonicReact est utilisé pour bien raptrier tout le style d'Ionic
 https://stackoverflow.com/questions/71351489/ionic-react-styles-not-rendering-even-after-importing-the-styles-in-app-js
  */
 
-const App: React.FC = () => {
-  return <AppComponent />;
-};
+const App: React.FC = () => (
+  <Provider store={store}>
+    <AppComponent />
+  </Provider>
+);
 
 export default App;
