@@ -1,0 +1,14 @@
+stages:
+  - dockerimage
+
+dockerimage:
+  stage: dockerimage
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+    #      cette derniere ligne doit venir chercher la ou se trouve notre Dockerfile par rapport au repertoire de projet
+    #    - deployment/Dockerfile // A REMPLACER
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $CI_REGISTRY_IMAGE

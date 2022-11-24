@@ -21,9 +21,20 @@ import * as authAction from "../../redux/authorization/actions/auth";
 
 import "./login.scss";
 
+export const util = { sum: null, formchecker: null };
+
+export const sumTest = (a, b) => {
+  return util.sum(a, b);
+};
+
+export const formCheckerTest = (userTest) => {
+  return util.formchecker(userTest);
+};
+
 function ConnexionComponent({ actionRegister }) {
   const history = useHistory();
   const [presentAlert] = useIonAlert();
+  const [present] = useIonToast();
   const [usernameOrEmailUser, setUsernameOrEmaiUser] = useState("");
   const [passwordUser, setPasswordUser] = useState("");
 
@@ -31,11 +42,10 @@ function ConnexionComponent({ actionRegister }) {
     param: usernameOrEmailUser,
     password: passwordUser,
   };
-  const [present] = useIonToast();
 
   useEffect(() => {}, []);
 
-  const formChecker = (userToLog) => {
+  util.formchecker = (userToLog) => {
     console.log(userToLog);
     if (userToLog.param === "") {
       presentAlert({
@@ -43,6 +53,7 @@ function ConnexionComponent({ actionRegister }) {
         message: "Merci de renseigner le champ.",
         buttons: ["OK"],
       });
+      return "missing e-mail";
     } else if (userToLog.password === "") {
       presentAlert({
         header: "Mot de passe non renseigné",
@@ -87,6 +98,24 @@ function ConnexionComponent({ actionRegister }) {
         });
       }
     });
+    return "all fields are filled";
+  };
+
+  util.sum = (a, b) => {
+    const result = a + b;
+    if (result !== 10) {
+      presentAlert({
+        header: "Mauvais calcul",
+        buttons: ["OK"],
+      });
+      return "error";
+    } else {
+      presentAlert({
+        header: "Bon calcul",
+        buttons: ["OK"],
+      });
+      return "success";
+    }
   };
 
   return (
@@ -116,7 +145,7 @@ function ConnexionComponent({ actionRegister }) {
             type="submit"
             expand="block"
             onClick={() => {
-              formChecker(userToLog);
+              util.formchecker(userToLog);
             }}
           >
             <IonIcon icon={sendSharp} />

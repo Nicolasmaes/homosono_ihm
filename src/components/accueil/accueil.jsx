@@ -53,8 +53,6 @@ function AccueilComponent({ actionRegister, stateAuth }) {
 
   useIonViewWillLeave(() => {
     console.log("useIonVic view will Leave event");
-    clearInterval(intervalId);
-    console.log("Le décompte s'est arrêté");
   });
 
   const decode = () => {
@@ -146,12 +144,11 @@ function AccueilComponent({ actionRegister, stateAuth }) {
   };
 
   return (
-    <>
+    <div className="accueil">
       <h1>Bienvenue sur HomeSono</h1>
       <h2>Phrase d'accroche</h2>
       {conditionalLinks()}
-      {sum(40, 101)}
-    </>
+    </div>
   );
 }
 
