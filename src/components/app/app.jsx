@@ -97,6 +97,20 @@ function AppComponent({ state, stateAuth, actionRegister }) {
     }
   };
 
+  const AdminTabUsers = () => {
+    if (
+      stateAuth.isLoggedIn &&
+      stateAuth.currentUserLoggedIn?.role === "ADMIN"
+    ) {
+      return (
+        <IonTabButton tab="users" href="/users">
+          <IonIcon icon={peopleCircle} />
+          <IonLabel>Users</IonLabel>
+        </IonTabButton>
+      );
+    }
+  };
+
   const LoggedInTab = () => {
     if (stateAuth.isLoggedIn) {
       return (
@@ -238,10 +252,7 @@ function AppComponent({ state, stateAuth, actionRegister }) {
             <IonIcon icon={storefront} />
             <IonLabel>Produits</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="users" href="/users">
-            <IonIcon icon={peopleCircle} />
-            <IonLabel>Users</IonLabel>
-          </IonTabButton>
+          {AdminTabUsers()}
           {LoggedInTab()}
           <IonTabButton tab="shoppingcart" href="/shoppingcart">
             <IonIcon icon={cart} />

@@ -52,7 +52,7 @@ function AccueilComponent({ actionRegister, stateAuth }) {
   }); */
 
   useIonViewWillLeave(() => {
-    console.log("useIonVic view will Leave event");
+    console.log("useIonic view will Leave event");
   });
 
   const decode = () => {
