@@ -146,6 +146,11 @@ function AccueilComponent({ actionRegister, stateAuth }) {
   return (
     <div className="accueil">
       <h1>Bienvenue sur HomeSono</h1>
+      <h1>
+        Cette version du front de HomeSono a été push vendredi midi, à voir
+        vendredi aprem si elle a été redeployée par gitlab, et donc si je la
+        vois en faisant docker compose up{" "}
+      </h1>
       <h2>Phrase d'accroche</h2>
       {conditionalLinks()}
     </div>
