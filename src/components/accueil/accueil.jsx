@@ -4,8 +4,13 @@ import {
   useIonToast,
   useIonViewDidEnter,
   useIonViewWillLeave,
+  IonIcon,
+  IonImg,
+  IonSearchbar,
 } from "@ionic/react";
+import { playCircle } from "ionicons/icons";
 import { connect } from "react-redux";
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import Moment from "moment";
@@ -22,6 +27,7 @@ function AccueilComponent({ actionRegister, stateAuth }) {
   const history = useHistory();
   const [present] = useIonToast();
   const [presentAlert] = useIonAlert();
+  const [searchText, setSearchText] = useState("");
 
   const intervalId = null;
 
@@ -112,9 +118,9 @@ function AccueilComponent({ actionRegister, stateAuth }) {
               decode();
             }}
           >
-            click me
+            verification de l'exp du token
           </IonButton>
-          <IonButton
+          {/* <IonButton
             className="ion-margin"
             type="submit"
             expand="block"
@@ -129,15 +135,15 @@ function AccueilComponent({ actionRegister, stateAuth }) {
             }}
           >
             Déconnexion
-          </IonButton>
+          </IonButton> */}
         </>
       );
     } else {
       return (
         <>
-          <IonButton className="ion-margin" type="submit" routerLink="/login">
+          {/* <IonButton className="ion-margin" type="submit" routerLink="/login">
             Connectez-vous pour en voir plus
-          </IonButton>
+          </IonButton> */}
         </>
       );
     }
@@ -145,8 +151,31 @@ function AccueilComponent({ actionRegister, stateAuth }) {
 
   return (
     <div className="accueil">
-      <h1>Bienvenue sur HomeSono</h1>
-      <h2>Phrase d'accroche</h2>
+      <h1>HomeSono</h1>
+      <IonButton
+        className="ion-margin button"
+        type="submit"
+        expand="block"
+        color="favorite"
+        routerLink="/accueil"
+      >
+        <IonIcon slot="end" icon={playCircle} size="large" color="primary" />
+        <h2>PROMOS</h2>
+      </IonButton>
+      <img
+        src="https://i.postimg.cc/J7H6nM1z/logo.png"
+        alt="illustration de la catégorie"
+        className="imageReduce"
+      />
+      <IonSearchbar
+        value={searchText}
+        inputMode="search"
+        showCancelButton="never"
+        placeholder="Rechercher un produit"
+        className="searchBar"
+        color="medium"
+      ></IonSearchbar>
+
       {conditionalLinks()}
     </div>
   );

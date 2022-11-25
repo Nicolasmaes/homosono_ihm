@@ -90,20 +90,33 @@ function CategoriesComponent({
   const categoriesList = () => {
     return chooseValue().map((e) => {
       return (
-        <div key={e.catIdCatPK}>
-          <IonItem routerLink={`categorie/${e.catIdCatPK}`}>
-            <IonCard className="singleCat center">
+        <div>
+          {/* <IonItem routerLink={`categorie/${e.catIdCatPK}`}>
+            <IonCard className="center">
+              <IonCardContent>
+                <IonImg className="imageReduce" src={e.fileDB?.path} alt="" />
+              </IonCardContent>
               <IonCardHeader>
                 <IonCardTitle>
                   <p className="test"> {e.catNameCat}</p>
                 </IonCardTitle>
-                <IonCardSubtitle>subtitle</IonCardSubtitle>
               </IonCardHeader>
-              <IonCardContent>
-                <IonImg className="imageReduce" src={e.fileDB?.path} alt="" />
-              </IonCardContent>
             </IonCard>
+          </IonItem> */}
+          <IonItem routerLink={`categorie/${e.catIdCatPK}`} className="test">
+            <div
+              className="center cardCreation"
+              routerLink={`categorie/${e.catIdCatPK}`}
+            >
+              <img
+                src={e.fileDB?.path}
+                alt="illustration de la catégorie"
+                className="imageReduce"
+              />
+              <h2>{e.catNameCat}</h2>
+            </div>
           </IonItem>
+
           {AdminButton(e)}
         </div>
       );

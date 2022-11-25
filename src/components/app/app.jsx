@@ -39,6 +39,11 @@ import {
   peopleCircle,
   personCircle,
   storefront,
+  pricetags,
+  person,
+  documentText,
+  help,
+  mailUnread,
 } from "ionicons/icons";
 import Accueil from "../../pages/Accueil/Accueil";
 import Categories from "../../pages/Categories/Categories";
@@ -196,13 +201,43 @@ function AppComponent({ state, stateAuth, actionRegister }) {
             <IonMenuToggle>
               <IonItem routerLink="/categories">
                 <IonIcon icon={storefront} />
-                <IonLabel className="ion-margin">Produits</IonLabel>
+                <IonLabel className="ion-margin">Catégories</IonLabel>
+              </IonItem>
+            </IonMenuToggle>
+            <IonMenuToggle>
+              <IonItem routerLink="/categories">
+                <IonIcon icon={person} />
+                <IonLabel className="ion-margin">Mes infos</IonLabel>
+              </IonItem>
+            </IonMenuToggle>
+            <IonMenuToggle>
+              <IonItem routerLink="/categories">
+                <IonIcon icon={pricetags} />
+                <IonLabel className="ion-margin">Mes commandes</IonLabel>
               </IonItem>
             </IonMenuToggle>
             <IonMenuToggle>
               <IonItem routerLink="/shoppingcart">
                 <IonIcon icon={cart} />
                 <IonLabel className="ion-margin">Panier</IonLabel>
+              </IonItem>
+            </IonMenuToggle>
+            <IonMenuToggle>
+              <IonItem routerLink="/categories">
+                <IonIcon icon={documentText} />
+                <IonLabel className="ion-margin">Mentions légales</IonLabel>
+              </IonItem>
+            </IonMenuToggle>
+            <IonMenuToggle>
+              <IonItem routerLink="/categories">
+                <IonIcon icon={help} />
+                <IonLabel className="ion-margin">FAQ</IonLabel>
+              </IonItem>
+            </IonMenuToggle>
+            <IonMenuToggle>
+              <IonItem routerLink="/categories">
+                <IonIcon icon={mailUnread} />
+                <IonLabel className="ion-margin">Nous contacter</IonLabel>
               </IonItem>
             </IonMenuToggle>
             {AdminMenu()}
@@ -250,7 +285,7 @@ function AppComponent({ state, stateAuth, actionRegister }) {
           </IonTabButton>
           <IonTabButton tab="Categories" href="/categories">
             <IonIcon icon={storefront} />
-            <IonLabel>Produits</IonLabel>
+            <IonLabel>Catégories</IonLabel>
           </IonTabButton>
           {AdminTabUsers()}
           {LoggedInTab()}
